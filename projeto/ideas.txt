@@ -1,0 +1,14 @@
+Super Sussy World
+
+Patterns:
+    1 - States: (Idle, Walk, Jump, Fall)
+    2 - Bytecode: Enemy/Player stats
+    3 - Update (Default Pygame Loop)
+    4 - Double Buffer (Default Pygame Loop)
+    5 - Prototype (Spawner por exemplo em um cano)
+    6 - Type-Object (Os inimigos do spawner serem levemente diferentes (por ex a speed))
+    7 - Observer (Eventos em geral)
+    8 - Flyweight (Gráficos só darem load uma vez, e então serem só reutilizados)
+    9 - Singleton (Uma única classe que dará load desses gráficos do Flyweight)
+    10 - Command (Player inputs, com possibilidade de fazer multiplayer)
+    11 - Component (Separar a parte gráfica da lógica, just like the snake)
