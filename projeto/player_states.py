@@ -31,10 +31,23 @@ class JumpingState(State):
         super().__init__(state_name)
     
     def enter(self):
-        return super().enter()
+        print("Entering Jumping State")
     
     def update(self):
-        return super().update()
+        print("Updating Jumping State")
     
     def exit(self):
-        return super().exit()
+        print("Exiting Jumping State")
+    
+class FallingState(State):
+    def __init__(self, state_name):
+        super().__init__(state_name)
+    
+    def enter(self):
+        print("Entering Falling State")
+    
+    def update(self):
+        print("Updating Falling State")
+    
+    def exit(self):
+        print("Exiting Falling State")

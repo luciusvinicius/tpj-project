@@ -1,12 +1,12 @@
 from game import Game
 
-
 def main():
     TITLE = "Super Sussy Bros"
     WIDTH, HEIGHT = 80, 60
     SCALE = 10
     FPS = 1
     game = Game(TITLE, WIDTH, HEIGHT, SCALE, FPS)
+
     game.run()
 
 

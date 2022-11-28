@@ -1,4 +1,5 @@
 import pygame
+from entity import Entity
 
 class Game:
     def __init__(self, title, width, height, scale, fps):
@@ -6,9 +7,12 @@ class Game:
         pygame.init()
         
         self.display = pygame.display.set_mode((width * scale, height * scale))
+        # self.display.set_caption(title)
         print((width * scale, height * scale))
         self.clock = pygame.time.Clock()
         self.fps = fps
+
+        self.my_entity = Entity(self.display)
         
     
     def run(self):
@@ -28,7 +32,10 @@ class Game:
             
             # Display Graphics
             self.display.fill("gray")
-            
+        
+
+            self.my_entity.update()
+
             # update window
             pygame.display.flip()
             self.clock.tick(self.fps)
