@@ -12,3 +12,4 @@ Patterns:
     9 - Singleton (Uma única classe que dará load desses gráficos do Flyweight)
     10 - Command (Player inputs, com possibilidade de fazer multiplayer)
     11 - Component (Separar a parte gráfica da lógica, just like the snake)
+    12 - Game Loop (no reason needed)
