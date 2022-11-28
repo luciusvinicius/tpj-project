@@ -4,7 +4,7 @@ def main():
     TITLE = "Super Sussy Bros"
     WIDTH, HEIGHT = 80, 60
     SCALE = 10
-    FPS = 1
+    FPS = 10
     game = Game(TITLE, WIDTH, HEIGHT, SCALE, FPS)
 
     game.run()

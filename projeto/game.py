@@ -1,7 +1,11 @@
 import pygame
 from entity import Entity
+from player import Player
+from command import Command
+
 
 class Game:
+
     def __init__(self, title, width, height, scale, fps):
         # Initialize pygame
         pygame.init()
@@ -12,30 +16,37 @@ class Game:
         self.clock = pygame.time.Clock()
         self.fps = fps
 
-        self.my_entity = Entity(self.display)
+        self.player = Player(self.display)
+        self.objs = [self.player]
+
+    def event_loop(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            
+            elif event.type == pygame.KEYDOWN:
+                if event.key in self.player.commands:
+                    self.player.commands[event.key].execute()
+
+    def logic_loop(self):
+        print(self.objs)
+        
+    def render_loop(self):
+        self.display.fill("gray")
         
     
-    def run(self):
+    def run(self): # Game loop
         while True:
-            # Game loop
-            
+            # Temporary
+            # print(f"Game inputs: {Game.INPUTS_EVENT}")
+            # pygame.event.post(self.inputs_ev)
+            # pygame.event.post(self.graphics_ev)
+
             # Handle events test
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    return
-                
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        print("Up key pressed")
-            
-            
-            # Display Graphics
-            self.display.fill("gray")
-        
-
-            self.my_entity.update()
-
+            self.event_loop()                
+            self.logic_loop()
+            self.render_loop()
             # update window
             pygame.display.flip()
             self.clock.tick(self.fps)
