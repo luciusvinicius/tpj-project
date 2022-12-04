@@ -11,9 +11,7 @@ class Jump(Command):
         self.player = player
 
     def execute(self):
-        print("Jumping")
         self.player.vertical_state_machine.change_state("jumping")
-        # self.player.jump()
 
 
 class MoveRight(Command):
@@ -23,7 +21,6 @@ class MoveRight(Command):
     def execute(self):
         self.player.direction[0] = 1
         self.player.horizontal_state_machine.change_state("running")
-        # self.player.move((1, 0))
 
 
 class MoveLeft(Command):
@@ -33,7 +30,6 @@ class MoveLeft(Command):
     def execute(self):
         self.player.direction[0] = -1
         self.player.horizontal_state_machine.change_state("running")
-        # self.player.move((-1, 0))
 
 
 class Nothing(Command):
