@@ -8,7 +8,9 @@ from state_machine import StateMachine
 COMMANDS = {
     pygame.K_UP: Jump,
     pygame.K_LEFT: MoveLeft,
-    pygame.K_RIGHT: MoveRight
+    pygame.K_RIGHT: MoveRight,
+    f"release_{pygame.K_LEFT}": Nothing,
+    f"release_{pygame.K_RIGHT}": Nothing,
 }
 
 

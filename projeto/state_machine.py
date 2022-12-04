@@ -15,6 +15,8 @@ class StateMachine:
         self.current_state.update()
 
     def change_state(self, new_state: str) -> bool:
+        if new_state == self.current_state.state_name:
+            return False
         self.current_state.exit()
         possible_states = self.states[self.current_state.state_name][1]
         if new_state in possible_states:  # if on possible states

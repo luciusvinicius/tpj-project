@@ -24,10 +24,17 @@ class Game:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
-            
+
+            elif event.type == pygame.KEYUP:
+                event_str = f"release_{event.key}"
+                if event_str in self.player.commands:
+                    self.player.commands[event_str].execute()
+
             elif event.type == pygame.KEYDOWN:
                 if event.key in self.player.commands:
                     self.player.commands[event.key].execute()
+
+
 
     def logic_loop(self):
         self.player.horizontal_state_machine.update()

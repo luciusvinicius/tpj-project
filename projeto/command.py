@@ -34,3 +34,12 @@ class MoveLeft(Command):
         self.player.direction[0] = -1
         self.player.horizontal_state_machine.change_state("running")
         # self.player.move((-1, 0))
+
+
+class Nothing(Command):
+    def __init__(self, player):
+        self.player = player
+
+    def execute(self):
+        self.player.direction[0] = 0
+        self.player.horizontal_state_machine.change_state("idle")
