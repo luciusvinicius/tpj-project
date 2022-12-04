@@ -30,7 +30,9 @@ class Game:
                     self.player.commands[event.key].execute()
 
     def logic_loop(self):
-        print(self.objs)
+        self.player.horizontal_state_machine.update()
+        # self.player.vertical_state_machine.update()
+        # print(self.objs)
         
     def render_loop(self):
         self.display.fill("gray")

@@ -1,5 +1,6 @@
 from game import Game
 
+
 def main():
     TITLE = "Super Sussy Bros"
     WIDTH, HEIGHT = 80, 60
