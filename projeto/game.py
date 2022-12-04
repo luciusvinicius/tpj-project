@@ -35,12 +35,13 @@ class Game:
                     self.player.commands[event.key].execute()
 
     def logic_loop(self):
-        self.player.horizontal_state_machine.update()
-        self.player.vertical_state_machine.update()
-        # print(self.objs)
+        for obj in self.objs:
+            obj.update()
 
     def render_loop(self):
         self.display.fill("gray")
+        for obj in self.objs:
+            obj.render()
 
     def run(self):  # Game loop
         while True:

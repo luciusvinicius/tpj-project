@@ -1,4 +1,3 @@
-from entity import Entity
 from command import *
 from player_states import *
 import pygame
@@ -14,7 +13,7 @@ COMMANDS = {
 }
 
 
-class Player(Entity):
+class Player(MovingEntity):
 
     def __init__(self, display_ref):
         super().__init__(display_ref)
@@ -35,3 +34,8 @@ class Player(Entity):
 
         for command in self.commands:
             self.commands[command] = self.commands[command](self)
+
+    def update(self):
+        self.horizontal_state_machine.update()
+        self.vertical_state_machine.update()
+        super().update()
