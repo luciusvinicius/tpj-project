@@ -1,6 +1,8 @@
 from MovingEntity import MovingEntity
 from state import State
+import json
 
+player_stats = json.load(open("config.json", "r"))["player"]
 
 class IdleState(State):
     def __init__(self, player: MovingEntity):
@@ -23,10 +25,7 @@ class RunningState(State):
 
     def enter(self):
         print("Entering Running State")
-
-    # def update(self):
-    #     pass
-        # print(f"Updating Running State to direction {self.obj.direction}")
+        self.obj.speed[1] = player_stats["speed"]
 
     def exit(self):
         print("Exiting Running State")
@@ -38,6 +37,8 @@ class JumpingState(State):
 
     def enter(self):
         print("Entering Jumping State")
+        self.obj.direction[1] = -1
+        self.obj.speed[1] = -player_stats["jump_speed"]
 
     # def update(self):
     #     pass

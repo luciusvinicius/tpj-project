@@ -12,8 +12,6 @@ class Jump(Command):
         self.player = player
 
     def execute(self):
-        self.player.direction[1] = -1
-        self.player.speed[1] = -JUMP_SPEED
         self.player.vertical_state_machine.change_state("jumping")
 
 

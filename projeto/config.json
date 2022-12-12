@@ -1,0 +1,13 @@
+{
+  "world": {
+    "gravity": 0.5
+  },
+  "player": {
+    "speed": 0.5,
+    "jump_speed": 5
+  },
+  "enemy": {
+    "min_speed": 0.25,
+    "max_speed": 0.5
+  }
+}
