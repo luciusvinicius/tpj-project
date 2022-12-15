@@ -1,6 +1,5 @@
 import pygame as pg
 
-JUMP_SPEED = 5
 
 class Command:
     def execute(self):

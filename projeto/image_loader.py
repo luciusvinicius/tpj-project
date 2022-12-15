@@ -3,6 +3,7 @@ import pygame as pg
 
 class ImageLoader:
     __instance = None
+
     @staticmethod
     def get_instance():
         if ImageLoader.__instance == None:

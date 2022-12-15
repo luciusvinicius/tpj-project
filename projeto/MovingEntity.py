@@ -10,4 +10,5 @@ class MovingEntity(Entity):
         self.gravity = gravity
 
     def update(self):
-        self._physics.update(self.speed, self.direction, self.gravity)
+        super().update()
+        self._physics.update(self.pos, self.speed, self.direction, self.gravity)

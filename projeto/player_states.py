@@ -1,8 +1,10 @@
 from MovingEntity import MovingEntity
 from state import State
 import json
+import os
 
-player_stats = json.load(open("config.json", "r"))["player"]
+json_path = os.path.join(os.path.dirname(__file__), "config.json")
+player_stats = json.load(open(json_path, "r"))["player"]
 
 class IdleState(State):
     def __init__(self, player: MovingEntity):
