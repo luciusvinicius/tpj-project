@@ -1,4 +1,4 @@
-Super Sussy World
+Super Sussy Bros
 
 Patterns:
     01 - Command: (Player inputs, com possibilidade de fazer multiplayer) CHECKED
