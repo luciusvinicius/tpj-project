@@ -1,14 +1,15 @@
-import pygame
-from state_machine import StateMachine
-import os
 from image_loader import*
+from engine import*
 
 
-class Input:
-    def update(self, events):
-        # process events pass
-        pass
+class GraphicsComponent:
+    def __init__(self, obj):
+        self.obj = obj
+        self.sprite_sheet_image = ImageLoader.get_instance().image_dict["walk1.png"]
 
+    def update(self):
+
+        self.obj.engine_ref.display.blit(self.sprite_sheet_image, (self.obj.pos[0], -self.obj.pos[1]))
 
 class Physics:
     def __init__(self, obj):
@@ -26,36 +27,32 @@ class Physics:
         pos[1] += speed[1] * direction[1]
 
 
-class GraphicsComponent:
-    def __init__(self, obj):
-        self.obj = obj
-        self.sprite_sheet_image = ImageLoader.get_instance().image_dict["walk1.png"]
-
-    def update(self, display_ref):
-
-        self.obj.display.blit(self.sprite_sheet_image, (self.obj.pos[0], -self.obj.pos[1]))
-
-
 class Entity:
-    def __init__(self, display_ref):
-        self.pos = [1, 1]
-        self.scale = (10, 10)
+    def __init__(self, engine, components_ref: list[ComponentTypes], init_pos = [0, 0], init_scale = [1, 1]):
+        self.pos = init_pos
+        self.scale = init_scale
+        self.engine_ref = engine
 
-        self.display = display_ref
-
-        #Components
-        self._input = Input() # <--- se calhar não precisa desse
-        self._physics = Physics(self)
-        self._graphics = GraphicsComponent(self)
+        self.components = []
+        for component in components_ref:
+            match component:
+                case ComponentTypes.Graphics:
+                    self._graphics = GraphicsComponent(self)
+                    self.components.append(self._graphics)
+                case ComponentTypes.Physics:
+                    self._physics = Physics(self)
+                    self.components.append(self._physics)
 
     def update(self):
-        print(f"Update Obj Pos: {self.pos}")
+        for component in self.components:
+            pass
+            #component.update()
         
     def render(self):
         # self._input.update(events)
         # self._physics.update(self.x, self.y, self.speed)
 
-        self._graphics.update(self.display)
+        self._graphics.update()
 
     def is_on_ground(self) -> bool:
         return False

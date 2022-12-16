@@ -1,5 +1,7 @@
-from game import Game
 from image_loader import*
+
+from engine import*
+from player import*
 
 
 def main():
@@ -12,8 +14,15 @@ def main():
     images_path = os.path.join(os.path.dirname(__file__), "..", "sprites/amogus")
     ImageLoader(images_path)
 
-    game = Game(TITLE, WIDTH, HEIGHT, SCALE, FPS)
-    game.run()
+    # Setup engine
+    engine = Engine(TITLE, WIDTH, HEIGHT, SCALE, FPS)
+
+    # Setup game
+    player1 = Player(engine, [ComponentTypes.Graphics, ComponentTypes.Physics])
+    engine.game_actors.append(player1)
+
+    # Run
+    engine.run()
 
 
 if __name__ == '__main__':

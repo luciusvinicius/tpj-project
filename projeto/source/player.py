@@ -15,8 +15,8 @@ COMMANDS = {
 
 class Player(MovingEntity):
 
-    def __init__(self, display_ref):
-        super().__init__(display_ref)
+    def __init__(self, engine, components):
+        super().__init__(engine, components)
         self.commands = COMMANDS
 
         self.horizontal_states = {
@@ -39,3 +39,23 @@ class Player(MovingEntity):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
         super().update()
+
+
+    def input_press_up(self):
+        self.vertical_state_machine.change_state("jumping")
+
+    def input_press_left(self):
+        self.direction[0] = -1
+        self.horizontal_state_machine.change_state("running")
+
+    def input_release_left(self):
+        self.direction[0] = 0
+        self.horizontal_state_machine.change_state("idle")
+
+    def input_press_right(self):
+        self.direction[0] = 1
+        self.horizontal_state_machine.change_state("running")
+    
+    def input_release_right(self):
+        self.direction[0] = 0
+        self.horizontal_state_machine.change_state("idle")

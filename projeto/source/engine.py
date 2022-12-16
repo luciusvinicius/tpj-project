@@ -1,10 +1,15 @@
 import pygame
-from entity import Entity
-from player import Player
 from command import Command
+from enum import Enum
+from input_manager import*
 
 
-class Game:
+class ComponentTypes(Enum):
+    Graphics = 1
+    Physics = 2
+    
+
+class Engine:
 
     def __init__(self, title, width, height, scale, fps):
         
@@ -17,7 +22,7 @@ class Game:
         self.aspect_ratio = self.monitor_size[0] / self.monitor_size[1]
         
         # Set display to fullscreen if monitor matches set proportions, otherwise use init default scale
-        if self.aspect_ratio == width/height:
+        if self.aspect_ratio != width/height:
             self.scale = self.monitor_size[0] / width
             self.display = pygame.display.set_mode((self.monitor_size[0], self.monitor_size[1]), pygame.FULLSCREEN)
         else:
@@ -30,16 +35,17 @@ class Game:
         self.is_running = False
         self.fps = fps
         self.clock = pygame.time.Clock()
+        self.input_manager = InputManager(self)
         
-        self.player = Player(self.display)
-        self.objs = [self.player]
+        self.game_actors = []
 
     def event_loop(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.is_running = False
-                return
+        command = self.input_manager.handle_input()
+        if command != None:
+            for actor in self.game_actors:
+                command.execute(actor)
 
+            """   
             elif event.type == pygame.KEYUP:
                 event_str = f"release_{event.key}"
                 if event_str in self.player.commands:
@@ -47,15 +53,15 @@ class Game:
 
             elif event.type == pygame.KEYDOWN:
                 if event.key in self.player.commands:
-                    self.player.commands[event.key].execute()
+                    self.player.commands[event.key].execute() """
 
     def logic_loop(self):
-        for obj in self.objs:
+        for obj in self.game_actors:
             obj.update()
 
     def render_loop(self):
         self.display.fill("gray")
-        for obj in self.objs:
+        for obj in self.game_actors:
             obj.render()
 
     # Game loop
@@ -77,3 +83,6 @@ class Game:
             self.clock.tick(self.fps)
         
         pygame.quit()
+
+    def stop_running(self):
+        self.is_running = False

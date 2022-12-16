@@ -1,4 +1,4 @@
-from MovingEntity import MovingEntity
+from moving_entity import MovingEntity
 from state import State
 import json
 import os

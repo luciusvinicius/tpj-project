@@ -3,8 +3,8 @@ from entity import Entity
 
 class MovingEntity(Entity):
 
-    def __init__(self, display_ref, speed_x=1, speed_y=1, gravity=0.5):
-        super().__init__(display_ref)
+    def __init__(self, engine, components, speed_x=1, speed_y=1, gravity=0.5):
+        super().__init__(engine, components)
         self.speed = [speed_x, speed_y]
         self.direction = [0, 0]
         self.gravity = gravity
