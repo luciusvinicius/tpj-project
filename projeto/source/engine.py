@@ -1,6 +1,7 @@
 import pygame
 from enum import Enum
 from input_manager import*
+from input_interface import InputInterface
 
 
 class ComponentTypes(Enum):
@@ -37,21 +38,31 @@ class Engine:
         self.clock = pygame.time.Clock()
         self.input_manager = InputManager(self)
         
-        self.game_actors = []
+        self._game_actors = []
+        self._input_game_actors = []
+
+    def add_actor(self, new_actor):
+        self._game_actors.append(new_actor)
+
+        if issubclass(type(new_actor), InputInterface):
+            self._input_game_actors.append(new_actor)
+        
 
     def early_update(self):
+
+        # Check for inputs
         command = self.input_manager.handle_input()
         if command != None:
-            for actor in self.game_actors:
+            for actor in self._input_game_actors:
                 command.execute(actor)
 
     def update(self):
-        for obj in self.game_actors:
+        for obj in self._game_actors:
             obj.update()
 
     def late_update(self):
         self.display.fill("gray")
-        for obj in self.game_actors:
+        for obj in self._game_actors:
             obj.render()
 
         pygame.display.flip()

@@ -2,6 +2,8 @@ from image_loader import*
 
 from engine import*
 from player import*
+from graphics_component import*
+from actor import*
 
 
 def main():
@@ -18,9 +20,11 @@ def main():
     # Setup engine
     engine = Engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG)
 
-    # Setup game
-    player1 = Player(engine, [ComponentTypes.Graphics, ComponentTypes.Physics], [1, 1])
-    engine.game_actors.append(player1)
+    # ::::::::::::::::::::::::::Setup game:::::::::::::::::::::::::::
+    # Player
+    gf =  GraphicsComponent("walk1.png")
+    player1 = Player(engine, [gf], [1, 1])
+    engine.add_actor(player1) 
 
     # Run
     engine.run()

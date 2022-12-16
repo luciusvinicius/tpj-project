@@ -1,7 +1,8 @@
+from input_interface import InputInterface
 from state_machine import StateMachine
 from player_states import *
 
-class Player(MovingEntity):
+class Player(MovingEntity, InputInterface):
 
     def __init__(self, engine, components, init_pos = [0, 0], init_scale = [1, 1]):
         super().__init__(engine, components, init_pos, init_scale)

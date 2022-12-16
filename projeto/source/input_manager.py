@@ -6,46 +6,29 @@ class Command:
 
 class PressUp(Command):
     def execute(actor):
-        method = getattr(actor, "input_press_up", None)
-        if callable(method):
-            actor.input_press_up()
+        actor.input_press_up()
 class PressDown(Command):
     def execute(actor):
-        method = getattr(actor, "input_press_down", None)
-        if callable(method):
-            actor.input_press_down()
+        actor.input_press_down()
 class PressLeft (Command):
     def execute(actor):
-        method = getattr(actor, "input_press_left", None)
-        if callable(method):
-            actor.input_press_left()
+        actor.input_press_left()
 class PressRight (Command):
     def execute(actor):
-        method = getattr(actor, "input_press_right", None)
-        if callable(method):
-            actor.input_press_right()
-
+        actor.input_press_right()
 
 class ReleaseUp(Command):
     def execute(actor):
-        method = getattr(actor, "input_release_up", None)
-        if callable(method):
-            actor.input_release_up()
+        actor.input_release_up()
 class ReleaseDown(Command):
     def execute(actor):
-        method = getattr(actor, "input_release_down", None)
-        if callable(method):
-            actor.input_release_down()
+        actor.input_release_down()
 class ReleaseLeft (Command):
     def execute(actor):
-        method = getattr(actor, "input_release_left", None)
-        if callable(method):
-            actor.input_release_left()
+        actor.input_release_left()
 class ReleaseRight (Command):
     def execute(actor):
-        method = getattr(actor, "input_release_right", None)
-        if callable(method):
-            actor.input_release_right()
+        actor.input_release_right()
 
 class InputManager:
     command_press = {
