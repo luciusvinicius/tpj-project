@@ -9,7 +9,7 @@ def main():
     FPS = 60
  
     # Setting image loader
-    images_path = os.path.join(os.path.dirname(__file__), "sprites/amogus")
+    images_path = os.path.join(os.path.dirname(__file__), "..", "sprites/amogus")
     ImageLoader(images_path)
 
     game = Game(TITLE, WIDTH, HEIGHT, SCALE, FPS)
