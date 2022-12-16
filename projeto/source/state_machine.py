@@ -1,6 +1,5 @@
 from state import State
 
-
 class StateMachine:
     def __init__(self, initial_state: str, states: dict[str, tuple[State, list[str]]]):
         # States should be a dictionary with the following structure:

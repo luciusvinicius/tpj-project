@@ -1,7 +1,8 @@
-from moving_entity import MovingEntity
-from state import State
-import json
 import os
+import json
+
+from state import State
+from moving_entity import MovingEntity
 
 print(os.path.join(os.path.dirname(__file__)))
 json_path = os.path.join(os.path.dirname(__file__), "..", "config.json")

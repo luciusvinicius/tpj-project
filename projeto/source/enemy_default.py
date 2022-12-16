@@ -1,4 +1,4 @@
-from MovingEntity import MovingEntity
+from moving_entity import MovingEntity
 
 
 class Enemy(MovingEntity):

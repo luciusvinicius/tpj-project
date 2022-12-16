@@ -1,5 +1,4 @@
 import pygame
-from command import Command
 from enum import Enum
 from input_manager import*
 
@@ -11,9 +10,10 @@ class ComponentTypes(Enum):
 
 class Engine:
 
-    def __init__(self, title, width, height, scale, fps):
+    def __init__(self, title, width, height, scale, fps, debug):
         
         pygame.init()
+        self.debug = debug
 
         # Setup window
         self.title = title
@@ -22,7 +22,7 @@ class Engine:
         self.aspect_ratio = self.monitor_size[0] / self.monitor_size[1]
         
         # Set display to fullscreen if monitor matches set proportions, otherwise use init default scale
-        if self.aspect_ratio != width/height:
+        if self.aspect_ratio == width/height and not self.debug:
             self.scale = self.monitor_size[0] / width
             self.display = pygame.display.set_mode((self.monitor_size[0], self.monitor_size[1]), pygame.FULLSCREEN)
         else:
@@ -39,47 +39,32 @@ class Engine:
         
         self.game_actors = []
 
-    def event_loop(self):
+    def early_update(self):
         command = self.input_manager.handle_input()
         if command != None:
             for actor in self.game_actors:
                 command.execute(actor)
 
-            """   
-            elif event.type == pygame.KEYUP:
-                event_str = f"release_{event.key}"
-                if event_str in self.player.commands:
-                    self.player.commands[event_str].execute()
-
-            elif event.type == pygame.KEYDOWN:
-                if event.key in self.player.commands:
-                    self.player.commands[event.key].execute() """
-
-    def logic_loop(self):
+    def update(self):
         for obj in self.game_actors:
             obj.update()
 
-    def render_loop(self):
+    def late_update(self):
         self.display.fill("gray")
         for obj in self.game_actors:
             obj.render()
+
+        pygame.display.flip()
 
     # Game loop
     def run(self):
         self.is_running = True
         while self.is_running:
-            # Temporary
-            # print(f"Game inputs: {Game.INPUTS_EVENT}")
-            # pygame.event.post(self.inputs_ev)
-            # pygame.event.post(self.graphics_ev)
-
-            # Loops
-            self.event_loop()
-            self.logic_loop()
-            self.render_loop()
-
-            # Update window
-            pygame.display.flip()
+            
+            self.early_update()
+            self.update()
+            self.late_update()
+    
             self.clock.tick(self.fps)
         
         pygame.quit()
