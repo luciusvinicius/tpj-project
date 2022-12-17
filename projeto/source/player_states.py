@@ -29,7 +29,7 @@ class RunningState(State):
 
     def enter(self):
         print("Entering Running State")
-        self.obj.speed[1] = player_stats["speed"]
+        self.obj.speed[0] = player_stats["speed"]
 
     def exit(self):
         print("Exiting Running State")
