@@ -30,19 +30,17 @@ class Player(MovingEntity, InputInterface):
         self.vertical_state_machine.change_state("jumping")
 
     def input_press_left(self):
-        self.direction[0] = -1
+        self.direction[0] -= 1
         self.horizontal_state_machine.change_state("running")
 
     def input_release_left(self):
-        if self.direction[0] == -1:
-            self.direction[0] = 0
-            self.horizontal_state_machine.change_state("idle")
+        self.direction[0] += 1
+        self.horizontal_state_machine.change_state("idle")
 
     def input_press_right(self):
-        self.direction[0] = 1
+        self.direction[0] += 1
         self.horizontal_state_machine.change_state("running")
     
     def input_release_right(self):
-        if self.direction[0] == 1:
-            self.direction[0] = 0
-            self.horizontal_state_machine.change_state("idle")
+        self.direction[0] -= 1
+        self.horizontal_state_machine.change_state("idle")
