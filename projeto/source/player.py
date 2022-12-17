@@ -23,6 +23,8 @@ class Player(MovingEntity, InputInterface):
     def update(self):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
+        if self.direction[0] == 0:
+            self.horizontal_state_machine.change_state("idle")
         super().update()
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
@@ -35,7 +37,6 @@ class Player(MovingEntity, InputInterface):
 
     def input_release_left(self):
         self.direction[0] += 1
-        self.horizontal_state_machine.change_state("idle")
 
     def input_press_right(self):
         self.direction[0] += 1
@@ -43,4 +44,3 @@ class Player(MovingEntity, InputInterface):
     
     def input_release_right(self):
         self.direction[0] -= 1
-        self.horizontal_state_machine.change_state("idle")
