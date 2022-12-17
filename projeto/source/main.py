@@ -4,6 +4,7 @@ from engine import*
 from player import*
 from graphics_component import*
 from actor import*
+from source.enemy_spawner import EnemySpawner
 
 
 def main():
@@ -22,9 +23,13 @@ def main():
 
     # ::::::::::::::::::::::::::Setup game:::::::::::::::::::::::::::
     # Player
-    gf =  GraphicsComponent("walk1.png")
-    player1 = Player(engine, [gf], [1, 1])
-    engine.add_actor(player1) 
+    player_graphics = GraphicsComponent("walk1.png")
+    player1 = Player(engine, [player_graphics], [1, 1])
+    engine.add_actor(player1)
+
+    enemy_spawner = EnemySpawner(engine, [], [1, 1])
+    engine.add_actor(enemy_spawner)
+
 
     # Run
     engine.run()

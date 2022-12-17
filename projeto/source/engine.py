@@ -2,6 +2,7 @@ import pygame
 from enum import Enum
 from input_manager import *
 from input_interface import InputInterface
+from source.enemy_default import Enemy
 
 
 class ComponentTypes(Enum):
@@ -42,7 +43,6 @@ class Engine:
 
     def add_actor(self, new_actor):
         self._game_actors.append(new_actor)
-
         if issubclass(type(new_actor), InputInterface):
             self._input_game_actors.append(new_actor)
 
