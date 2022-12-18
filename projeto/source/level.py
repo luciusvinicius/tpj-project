@@ -38,12 +38,12 @@ class Level:
                 tile_map.append(line)
 
         for idx_line, tile_line in enumerate(reversed(tile_map)):
-            tiles_idx = idx_line + 1
+            tiles_idx = idx_line + self.tile_scale
             line_height = self.game_scale * (self.height - tiles_idx)
             for idx, tile in enumerate(tile_line):
                 match tile:
                     case "-":
-                        tile_gc = GraphicsComponent(self.engine, "tile.png", [self.tile_scale, self.tile_scale])
+                        tile_gc = GraphicsComponent(self.engine, "tile.jpg", [self.tile_scale, self.tile_scale])
                         new_tile = Tile(self.engine, [tile_gc], [idx * self.game_scale * self.tile_scale, -line_height])
                         self.tiles.append(new_tile)
                         self.engine.add_actor(new_tile)
