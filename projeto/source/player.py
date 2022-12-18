@@ -2,9 +2,10 @@ from input_interface import InputInterface
 from state_machine import StateMachine
 from player_states import *
 
+
 class Player(MovingEntity, InputInterface):
 
-    def __init__(self, engine, components, init_pos = [0, 0], init_scale = [1, 1]):
+    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1]):
         super().__init__(engine, components, init_pos, init_scale)
 
         self.horizontal_states = {
@@ -34,22 +35,28 @@ class Player(MovingEntity, InputInterface):
 
     def input_press_left(self):
         self.direction[0] -= 1
-        self.horizontal_state_machine.change_state("running")
-        self._graphics.change_animation("walk")
-        self._graphics.flip_X = True
+        self.filter_horizontal_input()
 
     def input_release_left(self):
         self.direction[0] += 1
-        self.horizontal_state_machine.change_state("idle")
-        self._graphics.change_animation("idle")
+        self.filter_horizontal_input()
 
     def input_press_right(self):
         self.direction[0] += 1
-        self.horizontal_state_machine.change_state("running")
-        self._graphics.change_animation("walk")
-        self._graphics.flip_X = False
-    
+        self.filter_horizontal_input()
+
     def input_release_right(self):
         self.direction[0] -= 1
-        self.horizontal_state_machine.change_state("idle")
-        self._graphics.change_animation("idle")
+        self.filter_horizontal_input()
+
+    def filter_horizontal_input(self):
+        if self.direction[0] == 0:
+            self.horizontal_state_machine.change_state("idle")
+            self._graphics.change_animation("idle")
+        if self.direction[0] != 0:
+            self.horizontal_state_machine.change_state("running")
+            self._graphics.change_animation("walk")
+            if self.direction[0] > 0:
+                self._graphics.flip_X = False
+            else:
+                self._graphics.flip_X = True

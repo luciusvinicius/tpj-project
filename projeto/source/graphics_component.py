@@ -28,7 +28,8 @@ class GraphicsComponent:
         self.is_set_up = True
 
     # "animations" parameter example: [["idle", [0, 5], true, 10], [...]]. Order is: "name, frame numbers, is_loopable, speed"
-    def set_up_animations(self, animations: list[list[str, list[int, int], bool, int]], frame_size: list[int, int], sheet_size: list[int, int]):
+    def set_up_animations(self, animations: list[list[str, list[int, int], bool, int]], frame_size: list[int, int],
+                          sheet_size: list[int, int]):
         self.is_animated = True
 
         # Scale back in case the image was "inited" with a non 1 scale value
@@ -49,7 +50,7 @@ class GraphicsComponent:
             self.all_animations[animation[0]] = Animation(animation[0], temp_img_list, animation[2], animation[3])
 
         # After "all_animations" is set up, access the first element using string as a key. [0][0] is the name of the first animation
-        self.current_anim =  self.all_animations[animations[0][0]]
+        self.current_anim = self.all_animations[animations[0][0]]
         
     def change_animation(self, anim_string):
         if anim_string in self.all_animations.keys():
