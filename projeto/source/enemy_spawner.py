@@ -12,7 +12,7 @@ enemy_stats = json.load(open(json_path, "r"))["enemy"]
 
 class EnemySpawner(Actor):
 
-    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_rate=enemy_stats["spawn_rate"]):
+    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_rate=50):
         super().__init__(engine, components, init_pos, init_scale)
         self.spawn_rate = spawn_rate
         self.spawn_timer = 0
@@ -26,7 +26,8 @@ class EnemySpawner(Actor):
 
     def spawn_enemy(self):
         print("Spawning enemy")
-        enemy_graphics = GraphicsComponent("idle.png")
+        enemy_graphics = GraphicsComponent(self.engine_ref, "player.png", [1, 1])
+
         enemy_pos = [1, 0]
         enemy_speed = random.uniform(enemy_stats["min_speed"], enemy_stats["max_speed"])
 

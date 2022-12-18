@@ -4,7 +4,7 @@ from engine import*
 from player import*
 from graphics_component import*
 from actor import*
-from source.enemy_spawner import EnemySpawner
+from enemy_spawner import EnemySpawner
 
 
 def main():
@@ -16,6 +16,7 @@ def main():
  
     # Setting image loader
     images_path = os.path.join(os.path.dirname(__file__), "..", "sprites/amogus")
+    images_path = os.path.join(os.path.dirname(__file__), "..", "sprites/strangePlanet")
     ImageLoader(images_path)
 
     # Setup engine
@@ -23,9 +24,10 @@ def main():
 
     # ::::::::::::::::::::::::::Setup game:::::::::::::::::::::::::::
     # Player
-    player_graphics = GraphicsComponent("walk1.png")
-    player1 = Player(engine, [player_graphics], [1, 1])
-    engine.add_actor(player1)
+    gc =  GraphicsComponent(engine, "player.png", [3, 3])
+    gc.set_up_animations([["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]], [28, 21], [8, 4])
+    player1 = Player(engine, [gc], [0, 0])
+    engine.add_actor(player1) 
 
     enemy_spawner = EnemySpawner(engine, [], [1, 1])
     engine.add_actor(enemy_spawner)

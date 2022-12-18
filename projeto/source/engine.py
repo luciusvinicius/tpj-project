@@ -2,7 +2,7 @@ import pygame
 from enum import Enum
 from input_manager import *
 from input_interface import InputInterface
-from source.enemy_default import Enemy
+from enemy_default import Enemy
 
 
 class ComponentTypes(Enum):

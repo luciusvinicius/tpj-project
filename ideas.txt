@@ -14,6 +14,6 @@ Patterns:
     
     10 - Bytecode: Enemy/Player stats
     11 - Type-Object: (Os inimigos do spawner serem levemente diferentes (por ex a speed))
-    12 - Component: (Separar a parte gráfica da lógica, just like the snake)
+    12 - Component: (Separar a parte gráfica da lógica, just like the snake) CHECKED
     13 - Service Locator: (A nossa classe engine, serve como Service Locator, uma vez que outras classes acedem ao engine como intermediário para obter outras informações) CHECKED (?)
     
