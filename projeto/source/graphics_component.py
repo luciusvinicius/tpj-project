@@ -43,7 +43,7 @@ class GraphicsComponent:
 
             # Range does not include the last element, hence the +1
             for frame_nmbr in range(animation[1][0], animation[1][1] + 1):
-                print(frame_nmbr)
+                # print(frame_nmbr)
                 pos = self.get_pos(sheet_size, frame_nmbr)
                 temp_img_list.append(temp_spritesheet.get_image(pos, frame_size, self.scale))
 

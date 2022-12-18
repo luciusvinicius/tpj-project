@@ -1,0 +1,9 @@
+Lines will be ignored until the only "START" line.
+P --> Player initial position
+S --> Enemy Spawner
+E --> Enemy
+
+START
+
+P  ---         S
+---   -----------

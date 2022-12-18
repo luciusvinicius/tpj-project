@@ -24,8 +24,6 @@ class Player(MovingEntity, InputInterface):
     def update(self):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
-        if self.direction[0] == 0:
-            self.horizontal_state_machine.change_state("idle")
         super().update()
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::

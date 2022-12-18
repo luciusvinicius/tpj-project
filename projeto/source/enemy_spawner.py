@@ -25,8 +25,10 @@ class EnemySpawner(Actor):
             self.spawn_enemy()
 
     def spawn_enemy(self):
-        print("Spawning enemy")
-        enemy_graphics = GraphicsComponent(self.engine_ref, "player.png", [1, 1])
+        # print("Spawning enemy")
+        enemy_graphics = GraphicsComponent(self.engine_ref, "enemy.png", [3, 3])
+        enemy_graphics.set_up_animations([["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]],
+                             [28, 21], [8, 4])
 
         enemy_pos = [1, 0]
         enemy_speed = random.uniform(enemy_stats["min_speed"], enemy_stats["max_speed"])

@@ -5,6 +5,7 @@ from player import *
 from graphics_component import *
 from actor import *
 from enemy_spawner import EnemySpawner
+from level import Level
 
 
 def main():
@@ -23,6 +24,10 @@ def main():
     engine = Engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG)
 
     # ::::::::::::::::::::::::::Setup game:::::::::::::::::::::::::::
+    # Level
+    level = Level("../maps/test1.map", engine, SCALE, HEIGHT)
+
+
     # Player
     gc = GraphicsComponent(engine, "player.png", [3, 3])
     gc.set_up_animations([["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]],
