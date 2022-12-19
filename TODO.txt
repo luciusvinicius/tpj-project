@@ -1,1 +1,9 @@
--Polish player state machine, possibly making it a single entity with "walking", "jumping" and "falling" states. As it is now, the movement is a bit rough, both in terms of input and transistions.
+-Polish player state machine, possibly making it a single entity with "walking", "jumping" and "falling" states. As it is now, 
+ the movement is a bit rough, both in terms of input and transistions.
+
+-Physics component should work in an isoalted manner. After initiazlizing one of these types of components, just attaching them to an
+ actor should provide the actor with physics out of the box. This means that from the engine side, one should be able to just say to
+ the physics component to do its thing, and this is able to be done interannly by the component, without needing anything else.
+ TLDR: make Physics component "update" work the same way as Graphical component's "render" aka no arguments needed. Besides, constants
+ gravity shouldnt depend on parameters. Gravity should be a constant defined at the engine level, and then each physics component could 
+ have a mass var that affects how the object that is attached to the component behaves.

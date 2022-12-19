@@ -2,13 +2,14 @@ from image_loader import*
 import pygame as pg
 
 class GraphicsComponent:
-    def __init__(self, engine_ref, image_path, scale=[1, 1], speed=40):
+    def __init__(self, engine_ref, image_path, scale=[1, 1], speed=40, layer=0):
         self.engine_ref = engine_ref
         self.actor_ref = None
         self.scale = scale
         self.is_set_up = False
         self.flip_X = False
         self.flip_Y = False
+        self.layer = layer
 
         # Image vars 
         self.sprite_sheet_image = ImageLoader.get_instance().image_dict[image_path]

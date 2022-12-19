@@ -23,7 +23,7 @@ class Actor:
         self.pos = init_pos
         self.scale = init_scale
         self.engine_ref = engine
-        self._graphics = None
+        self.graphics = None
         self._physics = Physics(self)
 
         # Set up components
@@ -31,8 +31,8 @@ class Actor:
 
         for component in self.components:
             if issubclass(type(component), GraphicsComponent):
-                self._graphics = component
-                self._graphics.set_up(self)
+                self.graphics = component
+                self.graphics.set_up(self)
 
     def update(self):
         for component in self.components:
@@ -41,8 +41,8 @@ class Actor:
 
     def render(self):
 
-        if self._graphics is not None:
-            self._graphics.render()
+        if self.graphics is not None:
+            self.graphics.render()
 
     def is_on_ground(self) -> bool:
         return False

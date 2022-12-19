@@ -29,7 +29,7 @@ class Player(MovingEntity, InputInterface):
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
     def input_press_up(self):
         self.vertical_state_machine.change_state("jumping")
-        self._graphics.change_animation("jump")
+        self.graphics.change_animation("jump")
 
     def input_press_left(self):
         self.direction[0] -= 1
@@ -50,11 +50,11 @@ class Player(MovingEntity, InputInterface):
     def filter_horizontal_input(self):
         if self.direction[0] == 0:
             self.horizontal_state_machine.change_state("idle")
-            self._graphics.change_animation("idle")
+            self.graphics.change_animation("idle")
         if self.direction[0] != 0:
             self.horizontal_state_machine.change_state("running")
-            self._graphics.change_animation("walk")
+            self.graphics.change_animation("walk")
             if self.direction[0] > 0:
-                self._graphics.flip_X = False
+                self.graphics.flip_X = False
             else:
-                self._graphics.flip_X = True
+                self.graphics.flip_X = True

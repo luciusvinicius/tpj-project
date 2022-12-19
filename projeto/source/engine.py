@@ -1,8 +1,10 @@
 import pygame
 from enum import Enum
-from input_manager import *
+from input_manager import*
+from render_manager import*
 from input_interface import InputInterface
 from enemy_default import Enemy
+from graphics_component import GraphicsComponent
 
 
 class ComponentTypes(Enum):
@@ -36,7 +38,10 @@ class Engine:
         self.is_running = False
         self.fps = fps
         self.clock = pygame.time.Clock()
+
+        # Managers
         self.input_manager = InputManager(self)
+        self.render_manager = RenderManager(self)
 
         self._game_actors = []
         self._input_game_actors = []
@@ -45,6 +50,10 @@ class Engine:
         self._game_actors.append(new_actor)
         if issubclass(type(new_actor), InputInterface):
             self._input_game_actors.append(new_actor)
+
+        for component in new_actor.components:
+            if issubclass(type(component), GraphicsComponent):
+                self.render_manager.add_actor(new_actor)
 
     def early_update(self):
 
@@ -59,11 +68,8 @@ class Engine:
             obj.update()
 
     def late_update(self):
-        self.display.fill("gray")
-        for obj in self._game_actors:
-            obj.render()
+        self.render_manager.render()
 
-        pygame.display.flip()
 
     # Game loop
     def run(self):
