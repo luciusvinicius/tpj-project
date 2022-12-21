@@ -1,15 +1,16 @@
 from engine import *
-from graphics_component import *
+from sprite_component import *
 
 
 class Physics:
     def __init__(self, obj):
         self.obj = obj
+        self.is_on_ground = False
 
     def update(self, pos, speed: list[float, float], direction: list[float, float], gravity: float):
 
         # print(f"Obj Pos: {obj.pos}")
-        if self.obj.is_on_ground():
+        if self.is_on_ground:
             speed[1] = 0
         else:
             speed[1] += gravity
@@ -23,26 +24,30 @@ class Actor:
         self.pos = init_pos
         self.scale = init_scale
         self.engine_ref = engine
-        self.graphics = None
+        self.sprite = None
         self._physics = Physics(self)
 
         # Set up components
         self.components = components_ref
 
         for component in self.components:
-            if issubclass(type(component), GraphicsComponent):
-                self.graphics = component
-                self.graphics.set_up(self)
+            if issubclass(type(component), SpriteComponent):
+                self.sprite = component
+                self.sprite.set_up(self)
 
     def update(self):
+
+        self.update_col()
+
         for component in self.components:
             # component.update()
             pass
 
+    def update_col(self):
+        if self.sprite is not None:
+            self.sprite.update_col()
+
     def render(self):
+        if self.sprite is not None:
+            self.sprite.render()
 
-        if self.graphics is not None:
-            self.graphics.render()
-
-    def is_on_ground(self) -> bool:
-        return False

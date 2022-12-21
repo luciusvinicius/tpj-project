@@ -1,6 +1,7 @@
 from player import Player
-from graphics_component import GraphicsComponent
+from sprite_component import SpriteComponent
 from tile import Tile
+from collision_manager import CollisionLayers
 
 
 ENTITIES = {
@@ -43,7 +44,8 @@ class Level:
             for idx, tile in enumerate(tile_line):
                 match tile:
                     case "-":
-                        tile_gc = GraphicsComponent(self.engine, "tile.jpg", [self.tile_scale, self.tile_scale])
+                        tile_gc = SpriteComponent(self.engine, "tile.jpg", [self.tile_scale, self.tile_scale], 40, 0, [0,0], [1, 1], 
+                         [CollisionLayers.Wall], [], True, False)
                         new_tile = Tile(self.engine, [tile_gc], [idx * self.game_scale * self.tile_scale, -line_height])
                         self.tiles.append(new_tile)
                         self.engine.add_actor(new_tile)

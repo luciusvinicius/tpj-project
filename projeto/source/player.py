@@ -1,6 +1,7 @@
 from input_interface import InputInterface
 from state_machine import StateMachine
 from player_states import *
+from tile import Tile
 
 
 class Player(MovingEntity, InputInterface):
@@ -26,10 +27,16 @@ class Player(MovingEntity, InputInterface):
         self.vertical_state_machine.update()
         super().update()
 
+    def on_collision(self, colliding_sprites):
+        for sprite in colliding_sprites:
+            self.vertical_state_machine.change_state("idle")
+            self.sprite.change_animation("idle")
+            self.direction[1] = 0
+
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
     def input_press_up(self):
         self.vertical_state_machine.change_state("jumping")
-        self.graphics.change_animation("jump")
+        self.sprite.change_animation("jump")
 
     def input_press_left(self):
         self.direction[0] -= 1
@@ -50,11 +57,11 @@ class Player(MovingEntity, InputInterface):
     def filter_horizontal_input(self):
         if self.direction[0] == 0:
             self.horizontal_state_machine.change_state("idle")
-            self.graphics.change_animation("idle")
+            self.sprite.change_animation("idle")
         if self.direction[0] != 0:
             self.horizontal_state_machine.change_state("running")
-            self.graphics.change_animation("walk")
+            self.sprite.change_animation("walk")
             if self.direction[0] > 0:
-                self.graphics.flip_X = False
+                self.sprite.flip_X = False
             else:
-                self.graphics.flip_X = True
+                self.sprite.flip_X = True

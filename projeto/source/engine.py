@@ -1,47 +1,50 @@
-import pygame
+import pygame as pg
 from enum import Enum
 from input_manager import*
 from render_manager import*
+from collision_manager import*
 from input_interface import InputInterface
 from enemy_default import Enemy
-from graphics_component import GraphicsComponent
+from sprite_component import SpriteComponent
 
 
 class ComponentTypes(Enum):
     Graphics = 1
-    Physics = 2
+    SomethingElse = 2
 
 
 class Engine:
 
     def __init__(self, title, width, height, scale, fps, debug):
 
-        pygame.init()
+        pg.init()
         self.debug = debug
 
         # Setup window
         self.title = title
         self.scale = scale
-        self.monitor_size = [pygame.display.Info().current_w, pygame.display.Info().current_h]
+        self.monitor_size = [pg.display.Info().current_w, pg.display.Info().current_h]
         self.aspect_ratio = self.monitor_size[0] / self.monitor_size[1]
+        self.display = None
 
         # Set display to fullscreen if monitor matches set proportions, otherwise use init default scale
         if self.aspect_ratio == width / height and not self.debug:
             self.scale = self.monitor_size[0] / width
-            self.display = pygame.display.set_mode((self.monitor_size[0], self.monitor_size[1]), pygame.FULLSCREEN)
+            self.display = pg.display.set_mode((self.monitor_size[0], self.monitor_size[1]), pg.FULLSCREEN)
         else:
             self.aspect_ratio = width / height
-            self.display = pygame.display.set_mode((width * scale, height * scale))
+            self.display = pg.display.set_mode((width * scale, height * scale))
 
-        pygame.display.set_caption(title)
+        pg.display.set_caption(title)
 
         self.is_running = False
         self.fps = fps
-        self.clock = pygame.time.Clock()
+        self.clock = pg.time.Clock()
 
         # Managers
         self.input_manager = InputManager(self)
         self.render_manager = RenderManager(self)
+        self.collision_manager = CollisionManager(self)
 
         self._game_actors = []
         self._input_game_actors = []
@@ -52,11 +55,15 @@ class Engine:
             self._input_game_actors.append(new_actor)
 
         for component in new_actor.components:
-            if issubclass(type(component), GraphicsComponent):
-                self.render_manager.add_actor(new_actor)
+            if issubclass(type(component), SpriteComponent):
+
+                if new_actor.sprite.has_img:
+                    self.render_manager.add_actor(new_actor)
+
+                if new_actor.sprite.has_on_col:
+                    self.collision_manager.add_actor(new_actor)
 
     def early_update(self):
-
         # Check for inputs
         command = self.input_manager.handle_input()
         if command is not None:
@@ -64,24 +71,33 @@ class Engine:
                 command.execute(actor)
 
     def update(self):
+        # Update logic
         for obj in self._game_actors:
             obj.update()
 
-    def late_update(self):
-        self.render_manager.render()
+        # Run collisions
+        self.collision_manager.process()
 
+    def late_update(self):
+        # Render graphics
+        self.render_manager.render()
 
     # Game loop
     def run(self):
         self.is_running = True
+      
         while self.is_running:
+
+            if self.debug:
+                self.display.fill("gray")
+
             self.early_update()
             self.update()
             self.late_update()
 
             self.clock.tick(self.fps)
 
-        pygame.quit()
+        pg.quit()
 
     def stop_running(self):
         self.is_running = False

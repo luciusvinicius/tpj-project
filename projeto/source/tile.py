@@ -1,5 +1,5 @@
 from actor import Actor
-from graphics_component import GraphicsComponent
+from sprite_component import SpriteComponent
 
 
 class Tile(Actor):
