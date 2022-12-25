@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4660293b-4668-4751-a77d-f815580b6bbb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/source/level.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/level.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/source/main.py" afterDir="false" />
     </list>
     <list id="3490a9f3-0f5a-4b9e-bfeb-6dae508d16dc" name="Changes by PC" comment="" />
     <option name="SHOW_DIALOG" value="false" />

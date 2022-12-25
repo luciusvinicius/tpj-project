@@ -1,3 +1,5 @@
+import os.path
+
 import pygame as pg
 from enum import Enum
 from input_manager import*
@@ -5,6 +7,7 @@ from render_manager import*
 from collision_manager import*
 from input_interface import InputInterface
 from enemy_default import Enemy
+from sound_loader import SoundLoader
 from sprite_component import SpriteComponent
 
 
@@ -81,6 +84,12 @@ class Engine:
     def late_update(self):
         # Render graphics
         self.render_manager.render()
+
+    def play_bgm(self, bgm_path, volume=0.5):
+        path = SoundLoader.sound_path
+        pg.mixer.music.load(os.path.join(path, f"{bgm_path}"))
+        pg.mixer.music.play(-1)
+        pg.mixer.music.set_volume(volume)
 
     # Game loop
     def run(self):

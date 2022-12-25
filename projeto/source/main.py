@@ -2,6 +2,7 @@ from image_loader import *
 
 from engine import *
 from player import *
+from sound_loader import SoundLoader
 from sprite_component import *
 from actor import *
 from enemy_spawner import EnemySpawner
@@ -23,26 +24,16 @@ def main():
     # Setup engine
     engine = Engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG)
 
+    # Setting sound
+    sounds_path = os.path.join(os.path.dirname(__file__), "..", "sounds")
+    SoundLoader(sounds_path)
+
     # ::::::::::::::::::::::::::Setup game:::::::::::::::::::::::::::
     # Level
-    level = Level(os.path.join(os.path.dirname(__file__), "../maps/test1.map"), engine, SCALE, HEIGHT)
-
-
-    # Player
-    # p_sprite = SpriteComponent(engine, "player.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7], [CollisionLayers.Player], [CollisionLayers.Wall,
-    #  CollisionLayers.Enemy], True, True)
-    # p_sprite.set_up_animations([["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]], [28, 21], [8, 4])
-    #
-    #
-    # player1 = Player(engine, [p_sprite], [100, -200])
-    # engine.add_actor(player1)
-
-
-    #def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_rate=50, spawn_once=False):
-    enemy_spawner = EnemySpawner(engine, [], [1, 1], [1, 1], 50, True)
-    engine.add_actor(enemy_spawner)
+    Level(os.path.join(os.path.dirname(__file__), "../maps/test1.map"), engine, SCALE, HEIGHT)
 
     # ::::::::::::::::::::::::::Run:::::::::::::::::::::::::::
+    engine.play_bgm("bgm.wav")
     engine.run()
 
 
