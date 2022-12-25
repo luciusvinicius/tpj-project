@@ -14,13 +14,13 @@ enemy_stats = json.load(open(json_path, "r"))["enemy"]
 class EnemySpawner(Actor):
 
     def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_rate=50,
-                 spawn_once=False, disbled=False):
+                 spawn_once=False, disabled=False):
         super().__init__(engine, components, init_pos, init_scale)
         self.spawn_rate = spawn_rate
         self.spawn_once = spawn_once
         self.do_once = False
         self.spawn_timer = 0
-        self.disabled = disbled
+        self.disabled = disabled
         self.name = "EnemySpawner"
 
     def update(self):
@@ -47,7 +47,9 @@ class EnemySpawner(Actor):
             [["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]],
             [28, 21], [8, 4])
 
-        enemy_pos = [1, 0]
+        enemy_pos = self.pos.copy()
+        enemy_pos[0] -= enemy_graphics.rect.width / 2
+        enemy_pos[1] += enemy_graphics.rect.height / 4
         enemy_speed = random.uniform(enemy_stats["min_speed"], enemy_stats["max_speed"])
 
         enemy = Enemy(self.engine_ref, [enemy_graphics], enemy_pos, speed_x=enemy_speed)

@@ -1,4 +1,5 @@
 from player import Player
+from enemy_spawner import EnemySpawner
 from sprite_component import SpriteComponent
 from tile import Tile
 from collision_manager import CollisionLayers
@@ -42,11 +43,28 @@ class Level:
             line_height = self.game_scale * (self.height - (idx_line + 1) * self.tile_scale)
 
             for idx, tile in enumerate(tile_line):
+                horizontal_offset = idx * self.game_scale * self.tile_scale
                 match tile:
                     case "-":
                         tile_gc = SpriteComponent(self.engine, "tile.jpg", [self.tile_scale, self.tile_scale], 40, 0, [0,0], [1, 1], 
                          [CollisionLayers.Wall], [], True, False)
-                        new_tile = Tile(self.engine, [tile_gc], [idx * self.game_scale * self.tile_scale, -line_height])
+                        new_tile = Tile(self.engine, [tile_gc], [horizontal_offset, -line_height])
                         self.tiles.append(new_tile)
                         self.engine.add_actor(new_tile)
                         # print("Added tile at", idx * self.game_scale, line_height)
+
+                    case "P":
+                        p_sprite = SpriteComponent(self.engine, "player.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7],
+                                                   [CollisionLayers.Player], [CollisionLayers.Wall,
+                                                                              CollisionLayers.Enemy], True, True)
+                        p_sprite.set_up_animations(
+                            [["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]], [28, 21],
+                            [8, 4])
+
+                        player1 = Player(self.engine, [p_sprite], [horizontal_offset - p_sprite.rect.width / 2, -line_height + p_sprite.rect.height / 2])
+                        self.engine.add_actor(player1)
+
+                    case "S":
+                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], 50, False, False)
+                        self.engine.add_actor(enemy_spawner)
+

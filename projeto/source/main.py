@@ -29,13 +29,13 @@ def main():
 
 
     # Player
-    p_sprite = SpriteComponent(engine, "player.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7], [CollisionLayers.Player], [CollisionLayers.Wall, 
-     CollisionLayers.Enemy], True, True)
-    p_sprite.set_up_animations([["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]], [28, 21], [8, 4])
-
-
-    player1 = Player(engine, [p_sprite], [100, -200])
-    engine.add_actor(player1)
+    # p_sprite = SpriteComponent(engine, "player.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7], [CollisionLayers.Player], [CollisionLayers.Wall,
+    #  CollisionLayers.Enemy], True, True)
+    # p_sprite.set_up_animations([["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]], [28, 21], [8, 4])
+    #
+    #
+    # player1 = Player(engine, [p_sprite], [100, -200])
+    # engine.add_actor(player1)
 
 
     #def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_rate=50, spawn_once=False):
