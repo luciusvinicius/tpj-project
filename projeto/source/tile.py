@@ -6,6 +6,7 @@ class Tile(Actor):
 
     def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1]):
         super().__init__(engine, components, init_pos, init_scale)
+        self.name = "Tile"
 
 
     def is_on_ground(self) -> bool:

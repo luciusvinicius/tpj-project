@@ -1,4 +1,3 @@
-from engine import *
 from sprite_component import *
 
 
@@ -9,7 +8,6 @@ class Physics:
 
     def update(self, pos, speed: list[float, float], direction: list[float, float], gravity: float):
 
-        # print(f"Obj Pos: {obj.pos}")
         if self.is_on_ground:
             speed[1] = 0
         else:
@@ -26,6 +24,7 @@ class Actor:
         self.engine_ref = engine
         self.sprite = None
         self._physics = Physics(self)
+        self.name = "Actor"
 
         # Set up components
         self.components = components_ref
@@ -50,4 +49,10 @@ class Actor:
     def render(self):
         if self.sprite is not None:
             self.sprite.render()
+
+    def on_collision(self, colliding_sprites):
+        for sprite in colliding_sprites:
+            target = sprite.actor_ref
+            if "Tile" in target.name:
+                self._physics.is_on_ground = True
 

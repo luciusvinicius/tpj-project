@@ -13,26 +13,30 @@ class IdleState(State):
         super().__init__("idle", player)
 
     def enter(self):
-        print("Entering Idle State")
+        self.obj.direction[1] = -1
+        if not self.obj._physics.is_on_ground:
+            print("Idle: Not on ground")
+            self.obj.vertical_state_machine.change_state("falling")
 
     # def update(self):
     #     pass
         # print("Updating Idle State")
 
     def exit(self):
-        print("Exiting Idle State")
-
+        # print("Exiting Idle State")
+        pass
 
 class RunningState(State):
     def __init__(self, player: MovingEntity):
         super().__init__("running", player)
 
     def enter(self):
-        print("Entering Running State")
+        # print("Entering Running State")
         self.obj.speed[0] = player_stats["speed"]
 
     def exit(self):
-        print("Exiting Running State")
+        # print("Exiting Running State")
+        pass
 
 
 class JumpingState(State):
@@ -40,28 +44,32 @@ class JumpingState(State):
         super().__init__("jumping", player)
 
     def enter(self):
-        print("Entering Jumping State")
+        # print("Entering Jumping State")
         self.obj.direction[1] = -1
         self.obj.speed[1] = -player_stats["jump_speed"]
 
-    # def update(self):
-    #     pass
-        # print("Updating Jumping State")
+    def update(self):
+        if self.obj.speed[1] >= 0:
+            self.obj.vertical_state_machine.change_state("falling")
 
     def exit(self):
-        print("Exiting Jumping State")
-
+        # print("Exiting Jumping State")
+        pass
 
 class FallingState(State):
     def __init__(self, player: MovingEntity):
         super().__init__("falling", player)
+        self.obj.direction[1] = -1
+
 
     def enter(self):
-        print("Entering Falling State")
+        # print("Entering Falling State")
+        pass
 
-    # def update(self):
-    #     pass
-        # print("Updating Falling State")
+    def update(self):
+        if self.obj._physics.is_on_ground:
+            self.obj.vertical_state_machine.change_state("idle")
 
     def exit(self):
-        print("Exiting Falling State")
+        # print("Exiting Falling State")
+        pass

@@ -8,7 +8,7 @@ class Player(MovingEntity, InputInterface):
 
     def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1]):
         super().__init__(engine, components, init_pos, init_scale)
-
+        self.name = "Player"
         self.horizontal_states = {
             "idle": (IdleState(self), ["running"]),
             "running": (RunningState(self), ["idle"]),
@@ -26,12 +26,6 @@ class Player(MovingEntity, InputInterface):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
         super().update()
-
-    def on_collision(self, colliding_sprites):
-        for sprite in colliding_sprites:
-            self.vertical_state_machine.change_state("idle")
-            self.sprite.change_animation("idle")
-            self.direction[1] = 0
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
     def input_press_up(self):
