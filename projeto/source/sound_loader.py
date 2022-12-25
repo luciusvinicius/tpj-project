@@ -25,8 +25,9 @@ class SoundLoader:
         for sound in os.listdir(self.sound_path):
             self.sound_dict[sound] = pg.mixer.Sound(os.path.join(self.sound_path, sound))
 
-    def play_sound(self, sound_name):
+    def play_sound(self, sound_name, volume=0.5):
         self.sound_dict[sound_name].play()
+        self.sound_dict[sound_name].set_volume(volume)
 
     def get_path(self):
         return self.sound_path

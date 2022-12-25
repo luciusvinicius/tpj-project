@@ -1,6 +1,7 @@
 import os
 import json
 
+from sound_loader import SoundLoader
 from state import State
 from moving_entity import MovingEntity
 
@@ -45,6 +46,7 @@ class JumpingState(State):
 
     def enter(self):
         # print("Entering Jumping State")
+        SoundLoader.get_instance().play_sound("jump.wav")
         self.obj.direction[1] = -1
         self.obj.speed[1] = -player_stats["jump_speed"]
 
