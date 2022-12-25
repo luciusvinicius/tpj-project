@@ -22,10 +22,6 @@ class Engine:
     def __init__(self, title, width, height, scale, fps, debug):
 
         pg.init()
-        if pg.font:
-            print("Pog")
-        else:
-            print("Font not found")
         pg.font.init()
         self.debug = debug
 
