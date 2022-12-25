@@ -25,6 +25,7 @@ class Actor:
         self.sprite = None
         self._physics = Physics(self)
         self.name = "Actor"
+        self.speed = [0, 0]
 
         # Set up components
         self.components = components_ref
@@ -64,21 +65,28 @@ class Actor:
 
                 # print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
 
-                # if target_left == 96.0:
+                if target_left == 96.0:
+                    print(f"actor_pos: {actor_pos}")
+                    print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
+                    print(f"target_right: {target_right}, actor_left: {actor_left}, is_left: {is_left}")
+                    print(f"target img size: {target.sprite.img_size}")
+                    print(f"actor img size: {self.sprite.img_size}")
+
+                # if target_left == 144.0:
                 #     print(f"actor_pos: {actor_pos}")
                 #     print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
                 #     print(f"target_right: {target_right}, actor_left: {actor_left}, is_left: {is_left}")
                 #     print(f"target img size: {target.sprite.img_size}")
                 #     print(f"actor img size: {self.sprite.img_size}")
 
-                if is_left and is_right:
-                    # player is above or below tile
-                    pass
-
                 target_top = target.sprite.rect.centery + target.sprite.rect.h
                 actor_bottom = self.pos[1] - self.sprite.img_size[1]
-                if target_top > actor_bottom:
-                    self._physics.is_on_ground = True
 
+                if is_left or is_right:
+
+                    if is_left:
+                        self.speed[0] = 0
                 else:
-                    print("Lado sus")
+                    if target_top > actor_bottom:
+                        self._physics.is_on_ground = True
+
