@@ -10,12 +10,13 @@ class RenderManager:
         self._actors_to_render.sort(key=self.sort_actors)
 
     def render(self):
-        self._engine_ref.display.fill("gray")
+        if not self._engine_ref.debug:
+            self._engine_ref.display.fill("gray")
 
         for actor in self._actors_to_render:
-            actor.graphics.render()
+            actor.sprite.render()
 
         pg.display.flip()
 
     def sort_actors(self, val):
-        return val.graphics.layer
+        return val.sprite.layer
