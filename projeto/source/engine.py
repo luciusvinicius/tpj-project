@@ -8,6 +8,7 @@ from collision_manager import*
 from input_interface import InputInterface
 from enemy_default import Enemy
 from sound_loader import SoundLoader
+from Text import Text
 from sprite_component import SpriteComponent
 
 
@@ -21,6 +22,11 @@ class Engine:
     def __init__(self, title, width, height, scale, fps, debug):
 
         pg.init()
+        if pg.font:
+            print("Pog")
+        else:
+            print("Font not found")
+        pg.font.init()
         self.debug = debug
 
         # Setup window
@@ -51,6 +57,11 @@ class Engine:
 
         self._game_actors = []
         self._input_game_actors = []
+
+        # Score
+        self.score = 0
+        self.score_text = Text(self, "Score:", [10, 0], 32)
+        self.render_manager.add_text(self.score_text)
 
     def add_actor(self, new_actor):
         self._game_actors.append(new_actor)
