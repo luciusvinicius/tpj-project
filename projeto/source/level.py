@@ -38,8 +38,8 @@ class Level:
                 tile_map.append(line)
 
         for idx_line, tile_line in enumerate(reversed(tile_map)):
-            tiles_idx = idx_line + self.tile_scale
-            line_height = self.game_scale * (self.height - tiles_idx)
+            line_height = self.game_scale * (self.height - (idx_line + 1) * self.tile_scale)
+
             for idx, tile in enumerate(tile_line):
                 match tile:
                     case "-":
