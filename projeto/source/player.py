@@ -25,7 +25,7 @@ class Player(MovingEntity, InputInterface):
     def update(self):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
-
+        # print(f"Player pos: {self.pos}")
         # # print current state
         # print("--------------------")
         # # print(f"{self.speed = }")

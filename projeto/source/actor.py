@@ -53,4 +53,32 @@ class Actor:
         for sprite in colliding_sprites:
             target = sprite.actor_ref
             if "Tile" in target.name:
-                self._physics.is_on_ground = True
+                target_left = target.sprite.rect.centerx - target.sprite.rect.width / 2
+                actor_right = self.sprite.rect.centerx + self.sprite.rect.width / 2
+                target_right = target.sprite.rect.centerx + target.sprite.rect.width / 2
+                actor_left = self.sprite.rect.centerx - self.sprite.rect.width / 2
+                actor_pos = self.sprite.rect.centerx
+                is_left = actor_pos < target_left
+                is_right = actor_pos > target_right
+
+
+                # print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
+
+                # if target_left == 96.0:
+                #     print(f"actor_pos: {actor_pos}")
+                #     print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
+                #     print(f"target_right: {target_right}, actor_left: {actor_left}, is_left: {is_left}")
+                #     print(f"target img size: {target.sprite.img_size}")
+                #     print(f"actor img size: {self.sprite.img_size}")
+
+                if is_left and is_right:
+                    # player is above or below tile
+                    pass
+
+                target_top = target.sprite.rect.centery + target.sprite.rect.h
+                actor_bottom = self.pos[1] - self.sprite.img_size[1]
+                if target_top > actor_bottom:
+                    self._physics.is_on_ground = True
+
+                else:
+                    print("Lado sus")

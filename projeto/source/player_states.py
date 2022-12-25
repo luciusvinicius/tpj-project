@@ -13,7 +13,6 @@ class IdleState(State):
         super().__init__("idle", player)
 
     def enter(self):
-        print("Entering Idle State")
         if self.obj.vertical_state_machine.current_state.state_name == "idle":
             self.obj.direction[1] = 0
 
@@ -48,10 +47,8 @@ class JumpingState(State):
         # print("Entering Jumping State")
         self.obj.direction[1] = -1
         self.obj.speed[1] = -player_stats["jump_speed"]
-        print(f"Jump Speed Enter: {self.obj.speed[1]}")
 
     def update(self):
-        print(f"Jumping Speed Update: {self.obj.speed[1]}")
         if self.obj.speed[1] >= 0:
             self.obj.vertical_state_machine.change_state("falling")
 
