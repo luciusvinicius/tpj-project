@@ -35,9 +35,8 @@ class Actor:
                 self.sprite.set_up(self)
 
     def update(self):
-
         self.update_col()
-
+        self._physics.is_on_ground = False
         for component in self.components:
             # component.update()
             pass
@@ -55,4 +54,6 @@ class Actor:
             target = sprite.actor_ref
             if "Tile" in target.name:
                 self._physics.is_on_ground = True
+
+                # print("Ficou on ground")
 

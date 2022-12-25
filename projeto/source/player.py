@@ -25,6 +25,13 @@ class Player(MovingEntity, InputInterface):
     def update(self):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
+
+        # # print current state
+        # print("--------------------")
+        # # print(f"{self.speed = }")
+        # print(self.horizontal_state_machine.current_state)
+        # print(self.vertical_state_machine.current_state)
+
         super().update()
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
