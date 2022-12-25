@@ -8,7 +8,7 @@ class Physics:
 
     def update(self, pos, speed: list[float, float], direction: list[float, float], gravity: float):
 
-        if self.is_on_ground:
+        if self.is_on_ground and speed[1] >= 0:
             speed[1] = 0
         else:
             speed[1] += gravity
@@ -54,6 +54,3 @@ class Actor:
             target = sprite.actor_ref
             if "Tile" in target.name:
                 self._physics.is_on_ground = True
-
-                # print("Ficou on ground")
-

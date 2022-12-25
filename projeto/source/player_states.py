@@ -48,8 +48,10 @@ class JumpingState(State):
         # print("Entering Jumping State")
         self.obj.direction[1] = -1
         self.obj.speed[1] = -player_stats["jump_speed"]
+        print(f"Jump Speed Enter: {self.obj.speed[1]}")
 
     def update(self):
+        print(f"Jumping Speed Update: {self.obj.speed[1]}")
         if self.obj.speed[1] >= 0:
             self.obj.vertical_state_machine.change_state("falling")
 
@@ -69,7 +71,6 @@ class FallingState(State):
         pass
 
     def update(self):
-        print("Fall update")
         if self.obj._physics.is_on_ground:
             print("Falling: On ground")
             self.obj.vertical_state_machine.change_state("idle")
