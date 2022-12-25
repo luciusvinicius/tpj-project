@@ -54,39 +54,20 @@ class Actor:
         for sprite in colliding_sprites:
             target = sprite.actor_ref
             if "Tile" in target.name:
+                actor_center_x = self.sprite.rect.centerx
+                actor_center_y = self.sprite.rect.centery
+
+                target_center_y = target.sprite.rect.centery
+
                 target_left = target.sprite.rect.centerx - target.sprite.rect.width / 2
-                actor_right = self.sprite.rect.centerx + self.sprite.rect.width / 2
                 target_right = target.sprite.rect.centerx + target.sprite.rect.width / 2
-                actor_left = self.sprite.rect.centerx - self.sprite.rect.width / 2
-                actor_pos = self.sprite.rect.centerx
-                is_left = actor_pos < target_left
-                is_right = actor_pos > target_right
+                is_left = actor_center_x < target_left
+                is_right = actor_center_x > target_right
 
+                is_above = actor_center_y < target_center_y
 
-                # print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
+                if is_above:
+                    self._physics.is_on_ground = True
 
-                if target_left == 96.0:
-                    print(f"actor_pos: {actor_pos}")
-                    print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
-                    print(f"target_right: {target_right}, actor_left: {actor_left}, is_left: {is_left}")
-                    print(f"target img size: {target.sprite.img_size}")
-                    print(f"actor img size: {self.sprite.img_size}")
-
-                # if target_left == 144.0:
-                #     print(f"actor_pos: {actor_pos}")
-                #     print(f"target_left: {target_left}, actor_right: {actor_right}, is_right: {is_right}")
-                #     print(f"target_right: {target_right}, actor_left: {actor_left}, is_left: {is_left}")
-                #     print(f"target img size: {target.sprite.img_size}")
-                #     print(f"actor img size: {self.sprite.img_size}")
-
-                target_top = target.sprite.rect.centery + target.sprite.rect.h
-                actor_bottom = self.pos[1] - self.sprite.img_size[1]
-
-                if is_left or is_right:
-
-                    if is_left:
-                        self.speed[0] = 0
-                else:
-                    if target_top > actor_bottom:
-                        self._physics.is_on_ground = True
-
+                elif is_left or is_right:
+                    self.speed[0] = 0
