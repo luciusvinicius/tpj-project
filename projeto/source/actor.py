@@ -71,3 +71,7 @@ class Actor:
 
                 elif is_left or is_right:
                     self.speed[0] = 0
+
+    def on_signal(self, signal, *args):
+        print("Signal received: " + signal)
+        print("Args: " + str(args))

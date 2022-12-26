@@ -1,4 +1,5 @@
 from input_interface import InputInterface
+from signal_manager import SignalManager
 from state_machine import StateMachine
 from player_states import *
 from tile import Tile
@@ -64,3 +65,12 @@ class Player(MovingEntity, InputInterface):
                 self.sprite.flip_X = False
             else:
                 self.sprite.flip_X = True
+    
+    def on_collision(self, colliding_sprites):
+        super().on_collision(colliding_sprites)
+        for sprite in colliding_sprites:
+            target = sprite.actor_ref
+            if target.name == "Enemy":
+                print("Player collided with enemy")
+                signal_manager = SignalManager.get_instance()
+                signal_manager.send_signal("enemy_hit")
