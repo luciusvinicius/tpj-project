@@ -77,9 +77,13 @@ class Engine:
                     self.collision_manager.add_actor(new_actor)
 
     def early_update(self):
+        
+        for obj in self._game_actors:
+            obj.early_update()
+            
         # Check for inputs
-        command = self.input_manager.handle_input()
-        if command is not None:
+        commands = self.input_manager.handle_input()
+        for command in commands:
             for actor in self._input_game_actors:
                 command.execute(actor)
 

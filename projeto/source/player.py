@@ -23,14 +23,14 @@ class Player(MovingEntity, InputInterface):
         self.horizontal_state_machine = StateMachine("idle", self.horizontal_states)
         self.vertical_state_machine = StateMachine("idle", self.vertical_states)
 
+    def early_update(self):
+        self.direction[0] = 0
+        return super().early_update()
+
     def update(self):
         self.horizontal_state_machine.update()
         self.vertical_state_machine.update()
-        # print(f"Player pos: {self.pos}")
-        # # print current state
-        # print("--------------------")
-        # # print(f"{self.speed = }")
-        # print(self.horizontal_state_machine.current_state)
+
         super().update()
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
@@ -42,17 +42,17 @@ class Player(MovingEntity, InputInterface):
         self.direction[0] -= 1
         self.filter_horizontal_input()
 
-    def input_release_left(self):
-        self.direction[0] += 1
-        self.filter_horizontal_input()
+    # def input_release_left(self):
+    #     self.direction[0] += 1
+    #     self.filter_horizontal_input()
 
     def input_press_right(self):
         self.direction[0] += 1
         self.filter_horizontal_input()
 
-    def input_release_right(self):
-        self.direction[0] -= 1
-        self.filter_horizontal_input()
+    # def input_release_right(self):
+    #     self.direction[0] -= 1
+    #     self.filter_horizontal_input()
 
     def filter_horizontal_input(self):
         if self.direction[0] == 0:

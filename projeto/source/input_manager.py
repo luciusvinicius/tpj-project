@@ -66,18 +66,15 @@ class InputManager:
         self.command_to_use = None
 
     def handle_input(self):
+        keys = pg.key.get_pressed()
+        commands = []
+        
+        for command_key in self.command_press:
+            if keys[command_key]:
+                commands.append(self.command_press[command_key])
+        
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.engine_ref.stop_running()
-            else:
-                match event.type:
-                    case pg.KEYDOWN:
-                        self.command_to_use = self.command_press
-                    case pg.KEYUP:
-                        self.command_to_use = self.command_release
-                    case _:
-                        self.command_to_use = None
 
-                if self.command_to_use is not None:
-                    if event.key in self.command_to_use:
-                        return self.command_to_use[event.key]
+        return commands

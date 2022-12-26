@@ -7,7 +7,6 @@ class Enemy(MovingEntity):
     def __init__(self, engine, components, init_pos = [0, 0], init_scale = [1, 1], 
                  speed_x=1, speed_y=1, score=100, initial_direction=[-1, 0]):
         super().__init__(engine, components, init_pos, init_scale)
-        print(self.id)
         
         self.name = "Enemy"
         self.score = score
@@ -39,7 +38,6 @@ class Enemy(MovingEntity):
         super().update()
             
     def kill_enemy(self):
-        print("Enemy killed")
         self.engine_ref.render_manager.remove_actor(self)
         self.engine_ref.collision_manager.remove_actor(self)
         self.sprite.is_disabled = True

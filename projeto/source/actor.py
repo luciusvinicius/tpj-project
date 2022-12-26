@@ -40,6 +40,9 @@ class Actor:
                 self.sprite = component
                 self.sprite.set_up(self)
 
+    def early_update(self):
+        pass
+
     def update(self):
         self.update_col()
         self._physics.is_on_ground = False
