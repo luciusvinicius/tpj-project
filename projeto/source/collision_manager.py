@@ -23,7 +23,6 @@ class CollisionManager:
     def remove_actor(self, actor):
         if actor in self._actors_with_col:
             self._actors_with_col.remove(actor)
-        print(f"{self._actors_with_col=}")
 
     def process(self):
         for actor in self._actors_with_col:

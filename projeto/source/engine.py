@@ -124,5 +124,6 @@ class Engine:
     def on_signal(self, signal, *args):
         if signal == "enemy_dead":
             enemy = args[0]
+            if enemy.sprite.is_disabled: return
             self.score += enemy.score
             self.score_text.set_text(f"Score: {self.score}")

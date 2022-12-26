@@ -46,7 +46,7 @@ class JumpingState(State):
 
     def enter(self):
         # print("Entering Jumping State")
-        SoundLoader.get_instance().play_sound("jump.wav")
+        SoundLoader.get_instance().play_sound("jump.wav", 0.1)
         self.obj.direction[1] = -1
         self.obj.speed[1] = -player_stats["jump_speed"]
 

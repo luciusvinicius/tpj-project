@@ -23,6 +23,7 @@ class Enemy(MovingEntity):
             if is_above and player.speed[1] > 0:
                 signal_manager = SignalManager.get_instance()
                 signal_manager.send_signal("enemy_dead", self)
+                self.kill_enemy()
             
             else:
                 # Player took damage
@@ -30,6 +31,7 @@ class Enemy(MovingEntity):
                 pass
             
     def kill_enemy(self):
-        self.engine_ref.remove_actor(self)
-        self.render_manager.remove_actor(self)
-        self.collision_manager.remove_actor(self)
+        self.engine_ref.render_manager.remove_actor(self)
+        self.engine_ref.collision_manager.remove_actor(self)
+        self.sprite.is_disabled = True
+        self.sprite.kill()

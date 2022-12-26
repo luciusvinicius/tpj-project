@@ -6,6 +6,7 @@ class SpriteComponent(pg.sprite.Sprite):
      col_scale=[1, 1], groups=[], col_groups=[], has_img=True, has_on_col=False):
         super().__init__()
 
+        self.is_disabled = False
         self.engine_ref = engine_ref
         self.actor_ref = None
         self.has_img = has_img
@@ -99,6 +100,7 @@ class SpriteComponent(pg.sprite.Sprite):
         self.rect.h *= self.col_scale[1] 
 
     def update_col(self):
+        if self.is_disabled: return
         self.rect.centerx = (self.actor_ref.pos[0] + self.img_size[0]/2) + self.col_offset[0]
         self.rect.centery = (-self.actor_ref.pos[1] + self.img_size[1]/2) + self.col_offset[1]
 
