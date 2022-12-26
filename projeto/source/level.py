@@ -65,6 +65,6 @@ class Level:
                         self.engine.add_actor(player1)
 
                     case "S":
-                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], 200, False, False)
+                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], 50, False, False)
                         self.engine.add_actor(enemy_spawner)
 

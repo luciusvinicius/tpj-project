@@ -18,7 +18,12 @@ class Physics:
 
 
 class Actor:
+    
+    id = 1
+    
     def __init__(self, engine, components_ref: list, init_pos=[0, 0], init_scale=[1, 1]):
+        self.id = Actor.id
+        Actor.id += 1
         self.pos = init_pos
         self.scale = init_scale
         self.engine_ref = engine

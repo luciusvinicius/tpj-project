@@ -44,7 +44,7 @@ class EnemySpawner(Actor):
                                          [], True, False)
 
         enemy_graphics.set_up_animations(
-            [["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]],
+            [ ["walk", [6, 9], True, 100], ["idle", [0, 5], True, 1], ["jump", [13, 13], False, 100]],
             [28, 21], [8, 4])
 
         enemy_pos = self.pos.copy()

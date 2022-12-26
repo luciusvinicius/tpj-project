@@ -65,13 +65,10 @@ class FallingState(State):
 
 
     def enter(self):
-        print("Entering Falling State")
         self.obj.direction[1] = -1
-        pass
 
     def update(self):
         if self.obj._physics.is_on_ground:
-            print("Falling: On ground")
             self.obj.vertical_state_machine.change_state("idle")
 
     def exit(self):

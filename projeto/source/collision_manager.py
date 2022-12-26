@@ -33,6 +33,7 @@ class CollisionManager:
                 for actor_group in actor.sprite.own_groups:
                     colliding_test = pg.sprite.groupcollide(self.all_groups[actor_group],
                                                             self.all_groups[target_group], False, False)
+                    
                     for target_sprites in colliding_test.values():
                         colliding_sprites += target_sprites
 
