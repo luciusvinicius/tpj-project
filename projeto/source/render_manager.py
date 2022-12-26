@@ -24,6 +24,9 @@ class RenderManager:
             text.render()
 
         pg.display.flip()
+    
+    def remove_actor(self, actor):
+        self._actors_to_render.remove(actor)
 
     def sort_actors(self, val):
         return val.sprite.layer

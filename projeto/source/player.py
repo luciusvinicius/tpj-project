@@ -71,6 +71,5 @@ class Player(MovingEntity, InputInterface):
         for sprite in colliding_sprites:
             target = sprite.actor_ref
             if target.name == "Enemy":
-                print("Player collided with enemy")
                 signal_manager = SignalManager.get_instance()
-                signal_manager.send_signal("enemy_hit")
+                signal_manager.send_signal("enemy_hit", self)

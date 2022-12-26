@@ -9,6 +9,7 @@ from input_interface import InputInterface
 from enemy_default import Enemy
 from sound_loader import SoundLoader
 from Text import Text
+from signal_manager import SignalManager
 from sprite_component import SpriteComponent
 
 
@@ -58,6 +59,8 @@ class Engine:
         self.score = 0
         self.score_text = Text(self, f"Score: {self.score}", [10, 0], 32)
         self.render_manager.add_text(self.score_text)
+        signal_manager = SignalManager.get_instance()
+        signal_manager.listen_to_signal("enemy_dead", self)
 
     def add_actor(self, new_actor):
         self._game_actors.append(new_actor)
@@ -117,3 +120,9 @@ class Engine:
 
     def stop_running(self):
         self.is_running = False
+
+    def on_signal(self, signal, *args):
+        if signal == "enemy_dead":
+            enemy = args[0]
+            self.score += enemy.score
+            self.score_text.set_text(f"Score: {self.score}")

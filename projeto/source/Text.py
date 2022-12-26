@@ -12,14 +12,20 @@ class Text:
         self.size = size
         self.color = color
         self.bg_color = bg_color
+        self.set_text(self.content)
+        
 
-        if bg_color is None:
+    def render(self):
+        self.engine.display.blit(self.text, self.text_rect)
+    
+    def set_text(self, content):
+        self.content = content
+        if self.bg_color is None:
             self.text = self.font.render(self.content, True, self.color)
         else:
             self.text = self.font.render(self.content, True, self.color, self.bg_color)
 
         self.text_rect = self.text.get_rect()
         self.text_rect.center = [self.position[0] + self.text_rect.width / 2, self.position[1] + self.text_rect.height / 2]
-
-    def render(self):
-        self.engine.display.blit(self.text, self.text_rect)
+        
+        

@@ -19,6 +19,9 @@ class CollisionManager:
 
     def add_actor(self, new_actor):
         self._actors_with_col.append(new_actor)
+    
+    def remove_actor(self, actor):
+        self._actors_with_col.remove(actor)
 
     def process(self):
         for actor in self._actors_with_col:
