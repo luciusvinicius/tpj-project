@@ -42,17 +42,9 @@ class Player(MovingEntity, InputInterface):
         self.direction[0] -= 1
         self.filter_horizontal_input()
 
-    # def input_release_left(self):
-    #     self.direction[0] += 1
-    #     self.filter_horizontal_input()
-
     def input_press_right(self):
         self.direction[0] += 1
         self.filter_horizontal_input()
-
-    # def input_release_right(self):
-    #     self.direction[0] -= 1
-    #     self.filter_horizontal_input()
 
     def filter_horizontal_input(self):
         if self.direction[0] == 0:

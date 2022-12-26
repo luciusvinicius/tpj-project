@@ -33,8 +33,8 @@ def main():
     Level(os.path.join(os.path.dirname(__file__), "../maps/test1.map"), engine, SCALE, HEIGHT)
 
     # ::::::::::::::::::::::::::Run:::::::::::::::::::::::::::
-    engine.play_bgm("bgm.wav", volume=0.2)
-    engine.run()
+    engine.play_bgm("bgm.wav", volume=0.1)
+    engine.run() 
 
 
 if __name__ == '__main__':
