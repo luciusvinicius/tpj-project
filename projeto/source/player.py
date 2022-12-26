@@ -32,6 +32,8 @@ class Player(MovingEntity, InputInterface):
         self.vertical_state_machine.update()
 
         super().update()
+        if self.direction[0] == 0 and self.direction[1] == 0:
+            self.horizontal_state_machine.change_state("idle")
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
     def input_press_up(self):
@@ -49,10 +51,8 @@ class Player(MovingEntity, InputInterface):
     def filter_horizontal_input(self):
         if self.direction[0] == 0:
             self.horizontal_state_machine.change_state("idle")
-            self.sprite.change_animation("idle")
         if self.direction[0] != 0:
             self.horizontal_state_machine.change_state("running")
-            self.sprite.change_animation("walk")
             if self.direction[0] > 0:
                 self.sprite.flip_X = False
             else:

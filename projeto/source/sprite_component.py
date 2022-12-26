@@ -89,6 +89,7 @@ class SpriteComponent(pg.sprite.Sprite):
             self.img_size = [self.current_anim.indiv_img_frames[0].get_width(), self.current_anim.indiv_img_frames[0].get_height()]
         
     def change_animation(self, anim_string):
+        if self.current_anim is not None and self.current_anim.name == anim_string: return
         if anim_string in self.all_animations.keys():
             self.current_anim = self.all_animations[anim_string]
             self.anim_frame = 0

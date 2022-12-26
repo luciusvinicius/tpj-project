@@ -78,7 +78,7 @@ class Actor:
                     self._physics.is_on_ground = True
 
                 elif is_left or is_right:
-                    self.speed[0] = 0
+                    self.direction[0] = 0
 
     def on_signal(self, signal, *args):
         print("Signal received: " + signal)

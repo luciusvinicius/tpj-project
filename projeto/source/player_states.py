@@ -17,28 +17,23 @@ class IdleState(State):
         if self.obj.vertical_state_machine.current_state.state_name == "idle":
             self.obj.direction[1] = 0
 
-
     def update(self):
-        if self.obj.vertical_state_machine.current_state.state_name == "idle":
-            if not self.obj._physics.is_on_ground:
-                self.obj.vertical_state_machine.change_state("falling")
-
-    def exit(self):
-        # print("Exiting Idle State")
-        pass
-
+        if self.obj.vertical_state_machine.current_state.state_name == "idle" and not self.obj._physics.is_on_ground:
+            self.obj.vertical_state_machine.change_state("falling")
+        elif self.obj.horizontal_state_machine.current_state.state_name == "idle" and self.obj._physics.is_on_ground:
+            self.obj.sprite.change_animation("idle")
+                
 class RunningState(State):
     def __init__(self, player: MovingEntity):
         super().__init__("running", player)
 
     def enter(self):
-        # print("Entering Running State")
         self.obj.speed[0] = player_stats["speed"]
 
-    def exit(self):
-        # print("Exiting Running State")
-        pass
-
+    def update(self):
+        # if self.obj.vertical_state_machine.current_state.state_name == "idle":
+        if self.obj._physics.is_on_ground:
+                self.obj.sprite.change_animation("walk")
 
 class JumpingState(State):
     def __init__(self, player: MovingEntity):
@@ -61,11 +56,10 @@ class JumpingState(State):
 class FallingState(State):
     def __init__(self, player: MovingEntity):
         super().__init__("falling", player)
-        # self.obj.direction[1] = -1
-
 
     def enter(self):
         self.obj.direction[1] = -1
+        self.obj.sprite.change_animation("jump")
 
     def update(self):
         if self.obj._physics.is_on_ground:
