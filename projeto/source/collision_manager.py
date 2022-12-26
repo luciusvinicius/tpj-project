@@ -9,7 +9,7 @@ class CollisionLayers(Enum):
 
 
 class CollisionManager:
-    def __init__(self, engine) -> None:
+    def __init__(self, engine):
         self._engine_ref = engine
         self.all_groups = {}
         self._actors_with_col = []
@@ -21,7 +21,9 @@ class CollisionManager:
         self._actors_with_col.append(new_actor)
     
     def remove_actor(self, actor):
-        self._actors_with_col.remove(actor)
+        if actor in self._actors_with_col:
+            self._actors_with_col.remove(actor)
+        print(f"{self._actors_with_col=}")
 
     def process(self):
         for actor in self._actors_with_col:

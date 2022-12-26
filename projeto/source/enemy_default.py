@@ -26,6 +26,10 @@ class Enemy(MovingEntity):
             
             else:
                 # Player took damage
-                print("Player took damage")
+                # print("Player took damage")
+                pass
             
-            
+    def kill_enemy(self):
+        self.engine_ref.remove_actor(self)
+        self.render_manager.remove_actor(self)
+        self.collision_manager.remove_actor(self)
