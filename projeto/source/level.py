@@ -65,15 +65,28 @@ class Level:
                         self.engine.add_actor(player1)
 
                     case "R":
-                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], direction=1)
+                        es_sprite = SpriteComponent(self.engine, "portal2.png", [0.07, 0.07], 40, 1, [0, 7], [0.5, 0.7],
+                                                [], [], True, False)
+
+                        es_sprite.set_up_animations(
+                            [["idle", [0, 5], True, 100]], [3200/5, 1280/2], [5, 2]
+                        )
+                        enemy_spawner = EnemySpawner(self.engine, [es_sprite], [horizontal_offset, -line_height], [1, 1], direction=1)
                         self.engine.add_actor(enemy_spawner)
                     
                     case "L":
-                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], direction=-1)
+                        es_sprite = SpriteComponent(self.engine, "portal2.png", [0.07, 0.07], 40, 1, [0, 7], [0.5, 0.7],
+                                                [], [], True, False)
+
+                        es_sprite.set_up_animations(
+                            [["idle", [0, 5], True, 100]], [3200/5, 1280/2], [5, 2]
+                        )
+                        enemy_spawner = EnemySpawner(self.engine, [es_sprite], [horizontal_offset, -line_height], [1, 1], direction=-1)
                         self.engine.add_actor(enemy_spawner)
                     
                     case "O":
                         po_sprite = SpriteComponent(self.engine, "pow_tile.png", [2/7, 2/7], 40, 0, [0, 0], [1, 1], [CollisionLayers.POW], [], True, False)
                         po_obj = Pow(self.engine, [po_sprite], [horizontal_offset, -line_height])
                         self.engine.add_actor(po_obj)
+
 
