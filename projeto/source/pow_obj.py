@@ -29,7 +29,7 @@ class Pow(Actor):
         self.previous_hit_time = current_time
         
         if self.n_hits >= Pow.MAXIMUM_HITS:
-            self.kill()
+            self.remove_from_engine()
         
         SoundLoader.get_instance().play_sound("pow.mp3", 0.3)
         

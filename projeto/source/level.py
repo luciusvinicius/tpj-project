@@ -21,6 +21,9 @@ class Level:
         self.height = height
         self.tile_scale = tile_scale
         self.map_path = map_path
+    
+    def get_height(self):
+        return self.game_scale * self.height
 
     def load_map(self):
         map_path = self.map_path

@@ -1,5 +1,9 @@
 from sprite_component import *
+import json
+import os
 
+json_path = os.path.join(os.path.dirname(__file__), "..", "config.json")
+world_stats = json.load(open(json_path, "r"))["world"]
 
 class Physics:
     def __init__(self, obj):
@@ -31,6 +35,9 @@ class Actor:
         self._physics = Physics(self)
         self.name = "Actor"
         self.speed = [0, 0]
+        self.direction = [0, 0]
+        self.is_dead = False
+        self.gravity = 0
 
         # Set up components
         self.components = components_ref
@@ -49,6 +56,11 @@ class Actor:
         for component in self.components:
             # component.update()
             pass
+        if self.is_dead:
+            level_height = self.engine_ref.level.get_height()
+            act_height = self.sprite.rect.centery
+            if act_height < 0 or act_height > level_height:
+                self.remove_from_engine()
 
     def update_col(self):
         if self.sprite is not None:
@@ -59,6 +71,7 @@ class Actor:
             self.sprite.render()
 
     def on_collision(self, colliding_sprites):
+        if self.is_dead: return
         for sprite in colliding_sprites:
             target = sprite.actor_ref
             if "Tile" in target.name:
@@ -85,6 +98,13 @@ class Actor:
         print("Args: " + str(args))
     
     def kill(self):
+        self.is_dead = True
+        self.sprite.flip_Y = True
+        self.direction[1] = -1
+        self.speed[1] = 0
+        self.gravity = world_stats["death_gravity"]
+    
+    def remove_from_engine(self):
         self.engine_ref.render_manager.remove_actor(self)
         self.engine_ref.collision_manager.remove_actor(self)
         self.sprite.is_disabled = True

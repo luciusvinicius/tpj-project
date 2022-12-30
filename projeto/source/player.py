@@ -24,7 +24,6 @@ class Player(MovingEntity, InputInterface):
 
         self.horizontal_state_machine = StateMachine("idle", self.horizontal_states)
         self.vertical_state_machine = StateMachine("idle", self.vertical_states)
-        self.is_dead = False
         self.death_time = 0
 
     def early_update(self):
@@ -72,8 +71,8 @@ class Player(MovingEntity, InputInterface):
             for sprite in colliding_sprites:
                 if self.is_dead:
                     break
-                
                 target = sprite.actor_ref
+                if target.is_dead: continue
                 if target.name == "Enemy":
                     enemy_is_killed = target.check_player_death(self)
                     if not enemy_is_killed:
@@ -89,4 +88,4 @@ class Player(MovingEntity, InputInterface):
             SoundLoader.get_instance().play_sound("player_death.mp3", 1)
             self.is_dead = True
             self.death_time = pg.time.get_ticks()
-            super().kill()
+            super().remove_from_engine()

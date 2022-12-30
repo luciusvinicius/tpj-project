@@ -1,6 +1,7 @@
 {
   "world": {
-    "gravity": 0.5
+    "gravity": 0.5,
+    "death_gravity": 0.5
   },
   "player": {
     "speed": 5,
