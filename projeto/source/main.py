@@ -21,20 +21,27 @@ def main():
     images_path = os.path.join(os.path.dirname(__file__), "..", "sprites/strangePlanet")
     ImageLoader(images_path)
 
-    # Setup engine
-    engine = Engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG)
-
     # Setting sound
     sounds_path = os.path.join(os.path.dirname(__file__), "..", "sounds")
-    SoundLoader(sounds_path)
+    
+    while True:
+        should_restart = start_engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG, sounds_path)
+        if not should_restart: break
+
+def start_engine(title, width, height, scale, fps, debug, sounds_path):
+    # Setup engine
+    engine = Engine(title, width, height, scale, fps, debug)
 
     # ::::::::::::::::::::::::::Setup game:::::::::::::::::::::::::::
     # Level
-    Level(os.path.join(os.path.dirname(__file__), "../maps/test1.map"), engine, SCALE, HEIGHT)
-
+    level = Level(os.path.join(os.path.dirname(__file__), "../maps/test1.map"), engine, scale, height)
+    engine.add_level(level)
+    if not SoundLoader.has_instance():
+        SoundLoader(sounds_path)
+    
     # ::::::::::::::::::::::::::Run:::::::::::::::::::::::::::
     engine.play_bgm("bgm.wav", volume=0)
-    engine.run() 
+    return engine.run() 
 
 
 if __name__ == '__main__':

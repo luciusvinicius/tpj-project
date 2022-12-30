@@ -3,9 +3,11 @@ from signal_manager import SignalManager
 from state_machine import StateMachine
 from player_states import *
 from tile import Tile
-
+import pygame as pg
 
 class Player(MovingEntity, InputInterface):
+    
+    RESTART_TIME = 3
 
     def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1]):
         super().__init__(engine, components, init_pos, init_scale)
@@ -22,18 +24,24 @@ class Player(MovingEntity, InputInterface):
 
         self.horizontal_state_machine = StateMachine("idle", self.horizontal_states)
         self.vertical_state_machine = StateMachine("idle", self.vertical_states)
+        self.is_dead = False
+        self.death_time = 0
 
     def early_update(self):
         self.direction[0] = 0
         return super().early_update()
 
     def update(self):
-        self.horizontal_state_machine.update()
-        self.vertical_state_machine.update()
+        if self.is_dead:
+            if pg.time.get_ticks() - self.death_time > Player.RESTART_TIME * 1000:
+                self.engine_ref.stop_running()
+        else:
+            self.horizontal_state_machine.update()
+            self.vertical_state_machine.update()
 
-        super().update()
-        if self.direction[0] == 0 and self.direction[1] == 0:
-            self.horizontal_state_machine.change_state("idle")
+            super().update()
+            if self.direction[0] == 0 and self.direction[1] == 0:
+                self.horizontal_state_machine.change_state("idle")
 
     # :::::::::::::::::::::::::::::: Inputs :::::::::::::::::::::::::::
     def input_press_up(self):
@@ -59,12 +67,26 @@ class Player(MovingEntity, InputInterface):
                 self.sprite.flip_X = True
     
     def on_collision(self, colliding_sprites):
-        super().on_collision(colliding_sprites)
-        for sprite in colliding_sprites:
-            target = sprite.actor_ref
-            if target.name == "Enemy":
-                target.check_player_death(self)
-            
-            if target.name == "Pow":
-                # TODO: later, check if the player is on bottom of the pow. If not, act like a tile
-                target.hit()
+        if not self.is_dead:
+            super().on_collision(colliding_sprites)
+            for sprite in colliding_sprites:
+                target = sprite.actor_ref
+                if target.name == "Enemy":
+                    print("player collisiion with enemy")
+                    enemy_is_killed = target.check_player_death(self)
+                    print(f"enemy is killed: {enemy_is_killed}")
+                    if not enemy_is_killed:
+                        self.kill()
+                
+                if target.name == "Pow":
+                    # TODO: later, check if the player is on bottom of the pow. If not, act like a tile
+                    target.hit()
+    
+    
+    def kill(self):
+        if not self.is_dead:
+            print("Killing player")
+            SoundLoader.get_instance().play_sound("player_death.mp3", 1)
+            self.is_dead = True
+            self.death_time = pg.time.get_ticks()
+            super().kill()

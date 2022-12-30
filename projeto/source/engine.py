@@ -43,7 +43,12 @@ class Engine:
 
         pg.display.set_caption(title)
 
+        self.setup(fps)
+
+    def setup(self, fps):
+        
         self.is_running = False
+        self.should_restart = False
         self.fps = fps
         self.clock = pg.time.Clock()
 
@@ -75,6 +80,9 @@ class Engine:
 
                 if new_actor.sprite.has_on_col:
                     self.collision_manager.add_actor(new_actor)
+
+    def add_level(self, level):
+        level.load_map()
 
     def early_update(self):
         
@@ -121,13 +129,22 @@ class Engine:
             self.clock.tick(self.fps)
 
         pg.quit()
+        return self.should_restart
 
-    def stop_running(self):
+    def stop_running(self, should_restart=False):
         self.is_running = False
+        self.should_restart = should_restart
+    
+    def restart_level(self):
+        self.setup()
 
     def on_signal(self, signal, *args):
+        print(f"Engine received signal: {signal}")
         if signal == "enemy_dead":
             enemy = args[0]
             if enemy.sprite.is_disabled: return
+            print("Time to increase score")
             self.score += enemy.score
+            print("+= 100")
             self.score_text.set_text(f"Score: {self.score}")
+            print("End engine signal")

@@ -18,18 +18,22 @@ class Enemy(MovingEntity):
 
     def check_player_death(self, player):
 
+        print("Checking player death")
         # Check if player hit above enemy
         player_center_y = player.sprite.rect.centery
         enemy_center_y = self.sprite.rect.centery
         
+        
         is_above = player_center_y < enemy_center_y
         if is_above and player.speed[1] > 0:
+            
             signal_manager = SignalManager.get_instance()
             signal_manager.send_signal("enemy_dead", self)
+            print("Before kill")
             self.kill()
+            return True
         
-        else:
-            pass
+        return False
     
     def update(self):
         if self.direction[0] > 0:

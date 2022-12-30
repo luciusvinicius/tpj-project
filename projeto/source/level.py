@@ -20,11 +20,10 @@ class Level:
         self.game_scale = game_scale
         self.height = height
         self.tile_scale = tile_scale
+        self.map_path = map_path
 
-        self.load_map(map_path)
-
-
-    def load_map(self, map_path):
+    def load_map(self):
+        map_path = self.map_path
         max_width = 0
         tile_map = []
         with open(map_path, "r") as f:

@@ -11,6 +11,10 @@ class SoundLoader:
         if SoundLoader.__instance is None:
             SoundLoader()
         return SoundLoader.__instance
+    
+    @staticmethod 
+    def has_instance():
+        return SoundLoader.__instance is not None
 
     def __init__(self, sound_path):
         if SoundLoader.__instance is not None:
