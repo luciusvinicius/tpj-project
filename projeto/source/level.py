@@ -3,6 +3,7 @@ from enemy_spawner import EnemySpawner
 from sprite_component import SpriteComponent
 from tile import Tile
 from collision_manager import CollisionLayers
+from pow_obj import Pow
 
 
 ENTITIES = {
@@ -56,7 +57,7 @@ class Level:
                     case "P":
                         p_sprite = SpriteComponent(self.engine, "player.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7],
                                                    [CollisionLayers.Player], [CollisionLayers.Wall,
-                                                                              CollisionLayers.Enemy], True, True)
+                                                                              CollisionLayers.Enemy, CollisionLayers.POW], True, True)
                         p_sprite.set_up_animations(
                             [["idle", [0, 5], True, 1], ["walk", [6, 9], True, 100], ["jump", [13, 13], False, 100]], [28, 21],
                             [8, 4])
@@ -67,4 +68,9 @@ class Level:
                     case "S":
                         enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], 50, False, False)
                         self.engine.add_actor(enemy_spawner)
+                    
+                    case "O":
+                        po_sprite = SpriteComponent(self.engine, "pow_tile.png", [2/7, 2/7], 40, 0, [0, 0], [1, 1], [CollisionLayers.POW], [], True, False)
+                        po_obj = Pow(self.engine, [po_sprite], [horizontal_offset, -line_height])
+                        self.engine.add_actor(po_obj)
 

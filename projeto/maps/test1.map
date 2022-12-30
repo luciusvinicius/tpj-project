@@ -1,9 +1,11 @@
 Lines will be ignored until the only "START" line.
 P --> Player initial position
+O --> POW object
 S --> Enemy Spawner
 E --> Enemy
 
 START
+       O
 
        --
 

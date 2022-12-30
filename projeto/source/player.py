@@ -64,6 +64,7 @@ class Player(MovingEntity, InputInterface):
             target = sprite.actor_ref
             if target.name == "Enemy":
                 target.check_player_death(self)
-                # print("Player hit enemy")
-                # signal_manager = SignalManager.get_instance()
-                # signal_manager.send_signal("enemy_hit", self)
+            
+            if target.name == "Pow":
+                # TODO: later, check if the player is on bottom of the pow. If not, act like a tile
+                target.hit()

@@ -6,6 +6,7 @@ class CollisionLayers(Enum):
     Player = 1
     Wall = 2
     Enemy = 3
+    POW = 4
 
 
 class CollisionManager:

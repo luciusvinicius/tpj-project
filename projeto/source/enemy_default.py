@@ -14,7 +14,7 @@ class Enemy(MovingEntity):
         self.direction = initial_direction
         self.speed = [speed_x, speed_y]
         signal_manager = SignalManager.get_instance()
-        signal_manager.listen_to_signal("enemy_hit", self)
+        signal_manager.listen_to_signal("pow_hit", self)
 
     def check_player_death(self, player):
 
@@ -26,7 +26,7 @@ class Enemy(MovingEntity):
         if is_above and player.speed[1] > 0:
             signal_manager = SignalManager.get_instance()
             signal_manager.send_signal("enemy_dead", self)
-            self.kill_enemy()
+            self.kill()
         
         else:
             pass
@@ -37,10 +37,14 @@ class Enemy(MovingEntity):
         elif self.direction[0] < 0:
             self.sprite.flip_X = True
         super().update()
+        
+    def on_signal(self, signal, *args):
+        if signal == "pow_hit":
+            self.kill()
+        # return super().on_signal(signal, *args)
             
-    def kill_enemy(self):
+    def kill(self):
         SoundLoader.get_instance().play_sound("damage.mp3", 0.2)
-        self.engine_ref.render_manager.remove_actor(self)
-        self.engine_ref.collision_manager.remove_actor(self)
-        self.sprite.is_disabled = True
-        self.sprite.kill()
+        super().kill()
+    
+    

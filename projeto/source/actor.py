@@ -83,3 +83,9 @@ class Actor:
     def on_signal(self, signal, *args):
         print("Signal received: " + signal)
         print("Args: " + str(args))
+    
+    def kill(self):
+        self.engine_ref.render_manager.remove_actor(self)
+        self.engine_ref.collision_manager.remove_actor(self)
+        self.sprite.is_disabled = True
+        self.sprite.kill()
