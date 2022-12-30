@@ -1,5 +1,6 @@
 from moving_entity import MovingEntity
 from signal_manager import SignalManager
+from sound_loader import SoundLoader
 
 
 class Enemy(MovingEntity):
@@ -38,6 +39,7 @@ class Enemy(MovingEntity):
         super().update()
             
     def kill_enemy(self):
+        SoundLoader.get_instance().play_sound("damage.mp3", 0.2)
         self.engine_ref.render_manager.remove_actor(self)
         self.engine_ref.collision_manager.remove_actor(self)
         self.sprite.is_disabled = True
