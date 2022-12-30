@@ -7,7 +7,7 @@
     "jump_speed": 15
   },
   "enemy": {
-    "spawn_rate": 400,
+    "spawn_rate": 100,
     "min_speed": 0.5,
     "max_speed": 3
   }

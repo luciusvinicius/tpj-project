@@ -64,8 +64,12 @@ class Level:
                         player1 = Player(self.engine, [p_sprite], [horizontal_offset - p_sprite.rect.width / 2, -line_height + p_sprite.rect.height / 2])
                         self.engine.add_actor(player1)
 
-                    case "S":
-                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], 50, False, False)
+                    case "R":
+                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], direction=1)
+                        self.engine.add_actor(enemy_spawner)
+                    
+                    case "L":
+                        enemy_spawner = EnemySpawner(self.engine, [], [horizontal_offset, -line_height], [1, 1], direction=-1)
                         self.engine.add_actor(enemy_spawner)
                     
                     case "O":

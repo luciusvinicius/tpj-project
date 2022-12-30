@@ -64,7 +64,7 @@ class Engine:
 
         # Score
         self.score = 0
-        self.score_text = Text(self, f"Score: {self.score}", [10, 0], 32)
+        self.score_text = Text(self, f"Score: {self.score}", [50, 40], 32)
         self.render_manager.add_text(self.score_text)
         
 
