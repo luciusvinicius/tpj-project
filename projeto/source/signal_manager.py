@@ -33,4 +33,11 @@ class SignalManager:
         if signal_name in self.signals:
             for actor in self.signals[signal_name]:
                 actor.on_signal(signal_name, *args)
+                
+    def unlisten_to_signal(self, signal_name, actor: Actor):
+        if signal_name in self.signals:
+            for a in self.signals[signal_name]:
+                if a.id == actor.id:
+                    self.signals[signal_name].remove(a)
+                    break
     

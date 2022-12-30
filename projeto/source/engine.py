@@ -138,6 +138,10 @@ class Engine:
         self.should_restart = should_restart
     
     def restart_level(self):
+        for actor in self._game_actors:
+            if not isinstance(actor, Enemy): continue
+            signal_manager = SignalManager.get_instance()
+            signal_manager.unlisten_to_signal("pow_hit", actor)
         self.setup(True)
         self.level.load_map()
 
