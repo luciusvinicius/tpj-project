@@ -34,7 +34,7 @@ class Player(MovingEntity, InputInterface):
     def update(self):
         if self.is_dead:
             if pg.time.get_ticks() - self.death_time > Player.RESTART_TIME * 1000:
-                self.engine_ref.stop_running()
+                self.engine_ref.restart_level()
         else:
             self.horizontal_state_machine.update()
             self.vertical_state_machine.update()
@@ -70,11 +70,12 @@ class Player(MovingEntity, InputInterface):
         if not self.is_dead:
             super().on_collision(colliding_sprites)
             for sprite in colliding_sprites:
+                if self.is_dead:
+                    break
+                
                 target = sprite.actor_ref
                 if target.name == "Enemy":
-                    print("player collisiion with enemy")
                     enemy_is_killed = target.check_player_death(self)
-                    print(f"enemy is killed: {enemy_is_killed}")
                     if not enemy_is_killed:
                         self.kill()
                 
@@ -85,7 +86,6 @@ class Player(MovingEntity, InputInterface):
     
     def kill(self):
         if not self.is_dead:
-            print("Killing player")
             SoundLoader.get_instance().play_sound("player_death.mp3", 1)
             self.is_dead = True
             self.death_time = pg.time.get_ticks()
