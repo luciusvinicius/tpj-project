@@ -3,7 +3,6 @@ P --> Player initial position
 O --> POW object
 L --> Enemy Spawner to the Left
 R --> Enemy Spawner to the Right
-E --> Enemy
 
 START
 -----------------------
