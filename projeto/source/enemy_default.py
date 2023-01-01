@@ -1,7 +1,11 @@
 from moving_entity import MovingEntity
 from signal_manager import SignalManager
 from sound_loader import SoundLoader
+import os 
+import json
 
+json_path = os.path.join(os.path.dirname(__file__), "..", "config.json")
+enemy_stats = json.load(open(json_path, "r"))["enemy"]
 
 class Enemy(MovingEntity):
     
@@ -10,7 +14,7 @@ class Enemy(MovingEntity):
         super().__init__(engine, components, init_pos, init_scale)
         
         self.name = "Enemy"
-        self.score = score
+        self.score = enemy_stats["score"]
         self.direction = initial_direction
         self.speed = [speed_x, speed_y]
         signal_manager = SignalManager.get_instance()
