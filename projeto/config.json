@@ -11,6 +11,17 @@
     "spawn_rate": 100,
     "min_speed": 0.5,
     "max_speed": 3,
-    "score": 100
+    "score": 100,
+    "fast_enemy_chance": 0.5,
+    "slow_enemy": {
+      "min_speed": 0.5,
+      "max_speed": 1,
+      "score": 100
+    },
+    "fast_enemy": {
+      "min_speed": 2,
+      "max_speed": 3,
+      "score": 150
+    }
   }
 }

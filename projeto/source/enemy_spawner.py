@@ -3,7 +3,7 @@ import json
 import os
 
 from actor import Actor
-from enemy_default import Enemy
+from enemy_default import Enemy, FastEnemy, SlowEnemy
 from sprite_component import SpriteComponent
 from collision_manager import CollisionLayers
 
@@ -51,8 +51,15 @@ class EnemySpawner(Actor):
         enemy_pos = self.pos.copy()
         enemy_pos[0] -= enemy_graphics.rect.width / 2
         enemy_pos[1] += enemy_graphics.rect.height / 4
-        enemy_speed = random.uniform(enemy_stats["min_speed"], enemy_stats["max_speed"])
+        # enemy_speed = random.uniform(enemy_stats["min_speed"], enemy_stats["max_speed"])
+        
+        # Check if enemy is slow or fast
+        typ = None
+        if enemy_stats["fast_enemy_chance"] < random.random():
+            typ = FastEnemy()
+        else:
+            typ = SlowEnemy()
 
-        enemy = Enemy(self.engine_ref, [enemy_graphics], enemy_pos, speed_x=enemy_speed)
+        enemy = Enemy(self.engine_ref, [enemy_graphics], enemy_pos, typ = typ)
         enemy.direction = [self.direction, 0]
         self.engine_ref.add_actor(enemy)

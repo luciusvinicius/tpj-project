@@ -3,6 +3,7 @@ from signal_manager import SignalManager
 from sound_loader import SoundLoader
 import os 
 import json
+import random
 
 json_path = os.path.join(os.path.dirname(__file__), "..", "config.json")
 enemy_stats = json.load(open(json_path, "r"))["enemy"]
@@ -10,13 +11,14 @@ enemy_stats = json.load(open(json_path, "r"))["enemy"]
 class Enemy(MovingEntity):
     
     def __init__(self, engine, components, init_pos = [0, 0], init_scale = [1, 1], 
-                 speed_x=1, speed_y=1, score=100, initial_direction=[-1, 0]):
+                 speed_x=1, speed_y=1, score=100, initial_direction=[-1, 0], typ=None):
         super().__init__(engine, components, init_pos, init_scale)
         
         self.name = "Enemy"
-        self.score = enemy_stats["score"]
+        self.typ = typ
+        self.score = typ.score
         self.direction = initial_direction
-        self.speed = [speed_x, speed_y]
+        self.speed = self.typ.speed
         signal_manager = SignalManager.get_instance()
         signal_manager.listen_to_signal("pow_hit", self)
 
@@ -53,3 +55,21 @@ class Enemy(MovingEntity):
         super().kill()
     
     
+class EnemyType():
+    def __init__(self, speed, score):
+        self.speed = [speed, 0]
+        self.score = score
+        
+class SlowEnemy(EnemyType):
+    def __init__(self):
+        stats = enemy_stats["slow_enemy"]
+        speed = random.uniform(stats["min_speed"], stats["max_speed"])
+        score = stats["score"]
+        super().__init__(speed, score)
+
+class FastEnemy(EnemyType):
+    def __init__(self):
+        stats = enemy_stats["fast_enemy"]
+        speed = random.uniform(stats["min_speed"], stats["max_speed"])
+        score = stats["score"]
+        super().__init__(speed, score)
