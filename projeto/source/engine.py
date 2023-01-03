@@ -12,12 +12,6 @@ from Text import Text
 from signal_manager import SignalManager
 from sprite_component import SpriteComponent
 
-
-class ComponentTypes(Enum):
-    Graphics = 1
-    SomethingElse = 2
-
-
 class Engine:
 
     def __init__(self, title, width, height, scale, fps, debug):
@@ -137,7 +131,7 @@ class Engine:
     def restart_level(self):
         for actor in self._game_actors:
             if not isinstance(actor, Enemy): continue
-            
+
             signal_manager = SignalManager.get_instance()
             signal_manager.unlisten_to_signal("pow_hit", actor)
         self.setup(True)
