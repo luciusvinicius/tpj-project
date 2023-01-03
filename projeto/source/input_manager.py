@@ -25,27 +25,6 @@ class PressRight(Command):
     def execute(actor):
         actor.input_press_right()
 
-
-class ReleaseUp(Command):
-    def execute(actor):
-        actor.input_release_up()
-
-
-class ReleaseDown(Command):
-    def execute(actor):
-        actor.input_release_down()
-
-
-class ReleaseLeft(Command):
-    def execute(actor):
-        actor.input_release_left()
-
-
-class ReleaseRight(Command):
-    def execute(actor):
-        actor.input_release_right()
-
-
 class InputManager:
     command_press = {
         pg.K_UP: PressUp,
@@ -54,16 +33,8 @@ class InputManager:
         pg.K_RIGHT: PressRight,
     }
 
-    command_release = {
-        pg.K_UP: ReleaseUp,
-        pg.K_LEFT: ReleaseLeft,
-        pg.K_DOWN: ReleaseDown,
-        pg.K_RIGHT: ReleaseRight,
-    }
-
     def __init__(self, engine):
         self.engine_ref = engine
-        self.command_to_use = None
 
     def handle_input(self):
         keys = pg.key.get_pressed()

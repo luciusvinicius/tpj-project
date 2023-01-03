@@ -32,6 +32,12 @@ class SoundLoader:
     def play_sound(self, sound_name, volume=0.5):
         self.sound_dict[sound_name].play()
         self.sound_dict[sound_name].set_volume(volume)
+        
+    def play_bgm(self, bgm_path, volume=0.5):
+        path = SoundLoader.sound_path
+        pg.mixer.music.load(os.path.join(path, f"{bgm_path}"))
+        pg.mixer.music.play(-1)
+        pg.mixer.music.set_volume(volume)
 
     def get_path(self):
         return self.sound_path

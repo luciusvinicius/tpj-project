@@ -38,8 +38,9 @@ def start_engine(title, width, height, scale, fps, debug, sounds_path):
     if not SoundLoader.has_instance():
         SoundLoader(sounds_path)
     
+    sound_loader = SoundLoader.get_instance()
     # ::::::::::::::::::::::::::Run:::::::::::::::::::::::::::
-    engine.play_bgm("bgm.wav", volume=0)
+    sound_loader.play_bgm("bgm.wav", volume=0.2)
     return engine.run() 
 
 

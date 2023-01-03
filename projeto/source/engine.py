@@ -108,12 +108,6 @@ class Engine:
         # Render graphics
         self.render_manager.render()
 
-    def play_bgm(self, bgm_path, volume=0.5):
-        path = SoundLoader.sound_path
-        pg.mixer.music.load(os.path.join(path, f"{bgm_path}"))
-        pg.mixer.music.play(-1)
-        pg.mixer.music.set_volume(volume)
-
     # Game loop
     def run(self):
         self.is_running = True
