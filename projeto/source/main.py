@@ -23,10 +23,9 @@ def main():
 
     # Setting sound
     sounds_path = os.path.join(os.path.dirname(__file__), "..", "sounds")
+
+    start_engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG, sounds_path)
     
-    while True:
-        should_restart = start_engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG, sounds_path)
-        if not should_restart: break
 
 def start_engine(title, width, height, scale, fps, debug, sounds_path):
     # Setup engine

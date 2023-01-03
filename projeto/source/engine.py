@@ -51,7 +51,6 @@ class Engine:
     def setup(self, run=False):
         
         self.is_running = run
-        self.should_restart = False
         self.clock = pg.time.Clock()
 
         # Managers
@@ -131,15 +130,14 @@ class Engine:
             self.clock.tick(self.fps)
 
         pg.quit()
-        return self.should_restart
 
-    def stop_running(self, should_restart=False):
+    def stop_running(self):
         self.is_running = False
-        self.should_restart = should_restart
     
     def restart_level(self):
         for actor in self._game_actors:
             if not isinstance(actor, Enemy): continue
+            
             signal_manager = SignalManager.get_instance()
             signal_manager.unlisten_to_signal("pow_hit", actor)
         self.setup(True)
