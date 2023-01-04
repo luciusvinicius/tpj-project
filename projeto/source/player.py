@@ -48,12 +48,7 @@ class Player(MovingEntity, InputInterface):
         if self.is_dead:
             if pg.time.get_ticks() - self.death_time > Player.RESTART_TIME * 1000:
                 self.engine_ref.restart_level()
-        else:
-
-            
-            print(self.name)
-
-         
+        else:         
 
             self.horizontal_state_machine.update()
             self.vertical_state_machine.update()

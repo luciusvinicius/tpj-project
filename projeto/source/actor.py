@@ -12,12 +12,12 @@ class Physics:
 
     def update(self, pos, speed: list[float, float], direction: list[float, float], gravity: float):
 
-        if self.is_on_ground and speed[1] >= 0:
+
+        if self.is_on_ground and speed[1] >= 0:   
             speed[1] = 0
         else:
             speed[1] += gravity
 
-        
         pos[0] += speed[0] * direction[0]
 
         # TODO: Find a way to do this in the player class instead
@@ -25,6 +25,8 @@ class Physics:
             pos[0] = pg.math.clamp(pos[0], 0, self.obj.engine_ref.level.get_width())
 
         pos[1] += speed[1] * direction[1]
+
+        self.is_on_ground = False
 
 
 class Actor:
@@ -45,6 +47,7 @@ class Actor:
         self.is_dead = False
         self.gravity = 0
 
+
         # Set up components
         self.components = components_ref
 
@@ -61,7 +64,6 @@ class Actor:
 
     def update(self):
         self.update_col()
-        self._physics.is_on_ground = False
         for component in self.components:
             # component.update()
             pass

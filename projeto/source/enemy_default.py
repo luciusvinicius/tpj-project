@@ -22,6 +22,8 @@ class Enemy(MovingEntity):
         signal_manager = SignalManager.get_instance()
         signal_manager.listen_to_signal("pow_hit", self)
 
+        self.direction[1] = -1
+
     def check_player_death(self, player):
 
         player_center_y = player.sprite.rect.centery
@@ -42,7 +44,27 @@ class Enemy(MovingEntity):
             self.sprite.flip_X = False
         elif self.direction[0] < 0:
             self.sprite.flip_X = True
+            
         super().update()
+
+    def on_collision(self, colliding_sprites):
+        if not self.is_dead:
+            super().on_collision(colliding_sprites)
+            for sprite in colliding_sprites:
+                if self.is_dead:
+                    break
+                target = sprite.actor_ref
+
+                if "Tile" in target.name:
+        
+                    actor_center_y = self.sprite.rect.centery
+                    target_center_y = target.sprite.rect.centery
+                    is_above = actor_center_y < target_center_y
+
+                    if is_above:
+                        self._physics.is_on_ground = True
+
+    
         
     def on_signal(self, signal, *args):
         if signal == "pow_hit":

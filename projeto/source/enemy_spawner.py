@@ -39,7 +39,7 @@ class EnemySpawner(Actor):
         # Set up enemy
         enemy_graphics = SpriteComponent(self.engine_ref, "enemy.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7],
                                          [CollisionLayers.Enemy],
-                                         [CollisionLayers.Wall], True, False)
+                                         [CollisionLayers.Wall], True, True)
 
         enemy_graphics.set_up_animations(
             [ ["walk", [6, 9], True, 100], ["idle", [0, 5], True, 1], ["jump", [13, 13], False, 100]],
@@ -56,6 +56,5 @@ class EnemySpawner(Actor):
         else:
             typ = SlowEnemy()
 
-        enemy = Enemy(self.engine_ref, [enemy_graphics], enemy_pos, typ = typ)
-        enemy.direction = [self.direction, 0]
+        enemy = Enemy(self.engine_ref, [enemy_graphics], enemy_pos, initial_direction=[self.direction, 0], typ = typ)
         self.engine_ref.add_actor(enemy)
