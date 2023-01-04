@@ -40,7 +40,7 @@ def start_engine(title, width, height, scale, fps, debug, sounds_path):
     
     sound_loader = SoundLoader.get_instance()
     # ::::::::::::::::::::::::::Run:::::::::::::::::::::::::::
-    sound_loader.play_bgm("bgm.wav", volume=0.2)
+    sound_loader.play_bgm("bgm.wav", volume=0)
     return engine.run() 
 
 

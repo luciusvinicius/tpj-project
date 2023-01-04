@@ -91,12 +91,19 @@ class Engine:
                 command.execute(actor)
 
     def update(self):
+
+        for obj in self._game_actors:
+            obj.before_col_update()
+
+
+        # Run collisions
+        self.collision_manager.process()
+
+
         # Update logic
         for obj in self._game_actors:
             obj.update()
 
-        # Run collisions
-        self.collision_manager.process()
 
     def late_update(self):
         # Render graphics

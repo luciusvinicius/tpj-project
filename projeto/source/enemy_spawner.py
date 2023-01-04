@@ -13,13 +13,13 @@ enemy_stats = json.load(open(json_path, "r"))["enemy"]
 
 class EnemySpawner(Actor):
 
-    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_rate=enemy_stats["spawn_rate"],
+    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_time_offset=0, spawn_rate=enemy_stats["spawn_rate"],
                  spawn_once=False, disabled=False, direction=1):
         super().__init__(engine, components, init_pos, init_scale)
         self.spawn_rate = spawn_rate
         self.spawn_once = spawn_once
         self.has_spawned = False
-        self.spawn_timer = 0
+        self.spawn_timer = spawn_time_offset
         self.disabled = disabled
         self.name = "EnemySpawner"
         self.direction = direction
@@ -39,7 +39,7 @@ class EnemySpawner(Actor):
         # Set up enemy
         enemy_graphics = SpriteComponent(self.engine_ref, "enemy.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7],
                                          [CollisionLayers.Enemy],
-                                         [], True, False)
+                                         [CollisionLayers.Wall], True, False)
 
         enemy_graphics.set_up_animations(
             [ ["walk", [6, 9], True, 100], ["idle", [0, 5], True, 1], ["jump", [13, 13], False, 100]],

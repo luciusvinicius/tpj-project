@@ -1,3 +1,5 @@
+import random
+
 from player import Player
 from enemy_spawner import EnemySpawner
 from sprite_component import SpriteComponent
@@ -21,9 +23,15 @@ class Level:
         self.height = height
         self.tile_scale = tile_scale
         self.map_path = map_path
+
+        # TODO: properly implement width 
+        self.width = 15
     
     def get_height(self):
         return self.game_scale * self.height
+
+    def get_width(self):
+        return self.game_scale * self.width
 
     def load_map(self):
         map_path = self.map_path
@@ -74,7 +82,8 @@ class Level:
                         es_sprite.set_up_animations(
                             [["idle", [0, 5], True, 100]], [3200/5, 1280/2], [5, 2]
                         )
-                        enemy_spawner = EnemySpawner(self.engine, [es_sprite], [horizontal_offset, -line_height], [1, 1], direction=1)
+                        random_val = random.random() * 100
+                        enemy_spawner = EnemySpawner(self.engine, [es_sprite], [horizontal_offset, -line_height], [1, 1], random_val, direction=1)
                         self.engine.add_actor(enemy_spawner)
                     
                     case "L":
@@ -84,7 +93,8 @@ class Level:
                         es_sprite.set_up_animations(
                             [["idle", [0, 5], True, 100]], [3200/5, 1280/2], [5, 2]
                         )
-                        enemy_spawner = EnemySpawner(self.engine, [es_sprite], [horizontal_offset, -line_height], [1, 1], direction=-1)
+                        random_val = random.random() * 100
+                        enemy_spawner = EnemySpawner(self.engine, [es_sprite], [horizontal_offset, -line_height], [1, 1], random_val, direction=-1)
                         self.engine.add_actor(enemy_spawner)
                     
                     case "O":

@@ -17,7 +17,13 @@ class Physics:
         else:
             speed[1] += gravity
 
+        
         pos[0] += speed[0] * direction[0]
+
+        # TODO: Find a way to do this in the player class instead
+        if self.obj.name == "Player":
+            pos[0] = pg.math.clamp(pos[0], 0, self.obj.engine_ref.level.get_width())
+
         pos[1] += speed[1] * direction[1]
 
 
@@ -50,6 +56,9 @@ class Actor:
     def early_update(self):
         pass
 
+    def before_col_update(self):
+        pass
+
     def update(self):
         self.update_col()
         self._physics.is_on_ground = False
@@ -74,24 +83,7 @@ class Actor:
         if self.is_dead: return
         for sprite in colliding_sprites:
             target = sprite.actor_ref
-            if "Tile" in target.name:
-                actor_center_x = self.sprite.rect.centerx
-                actor_center_y = self.sprite.rect.centery
-
-                target_center_y = target.sprite.rect.centery
-
-                target_left = target.sprite.rect.centerx - target.sprite.rect.width / 2
-                target_right = target.sprite.rect.centerx + target.sprite.rect.width / 2
-                is_left = actor_center_x < target_left
-                is_right = actor_center_x > target_right
-
-                is_above = actor_center_y < target_center_y
-
-                if is_above:
-                    self._physics.is_on_ground = True
-
-                elif is_left or is_right:
-                    self.direction[0] = 0
+   
 
     def on_signal(self, signal, *args):
         print("Signal received: " + signal)
