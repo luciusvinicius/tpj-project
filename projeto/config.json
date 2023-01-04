@@ -8,12 +8,12 @@
     "jump_speed": 15
   },
   "enemy": {
-    "spawn_rate": 100,
-    "spawn_rate_variation": 10,
-    "min_speed": 0.5,
-    "max_speed": 3,
-    "score": 100,
-    "fast_enemy_chance": 0.5,
+    "spawner": {
+      "spawn_rate": 100,
+      "spawn_rate_variation": 10,
+      "spawn_rate_intensification": 1000,
+      "fast_enemy_chance": 0.5
+    },
     "slow_enemy": {
       "min_speed": 0.5,
       "max_speed": 1,

@@ -1,6 +1,7 @@
 import random
 import json
 import os
+import math
 
 from actor import Actor
 from enemy_default import Enemy, FastEnemy, SlowEnemy
@@ -9,18 +10,20 @@ from collision_manager import CollisionLayers
 
 json_path = os.path.join(os.path.dirname(__file__), "..", "config.json")
 enemy_stats = json.load(open(json_path, "r"))["enemy"]
+spawner = enemy_stats["spawner"]
 
 
 class EnemySpawner(Actor):
 
-    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_time_offset=0, spawn_rate=enemy_stats["spawn_rate"],
+    def __init__(self, engine, components, init_pos=[0, 0], init_scale=[1, 1], spawn_time_offset=0, spawn_rate=spawner["spawn_rate"],
                  spawn_once=False, disabled=False, direction=1):
         super().__init__(engine, components, init_pos, init_scale)
         self.spawn_rate = spawn_rate
         self.spawn_once = spawn_once
         self.has_spawned = False
         self.spawn_timer = spawn_time_offset
-        self.spawn_rate_variation = random.uniform(-enemy_stats["spawn_rate_variation"], enemy_stats["spawn_rate_variation"])
+        self.timer = spawn_time_offset
+        self.spawn_rate_variation = random.uniform(-spawner["spawn_rate_variation"], spawner["spawn_rate_variation"])
         self.disabled = disabled
         self.name = "EnemySpawner"
         self.direction = direction
@@ -29,12 +32,15 @@ class EnemySpawner(Actor):
         super().update()
         if self.disabled: return
         self.spawn_timer += 1
-        if self.spawn_timer >= self.spawn_rate + self.spawn_rate_variation:
+        self.timer += 1
+        spawn_time = self.spawn_rate + self.spawn_rate_variation
+        spawn_time_intensifier = math.floor((self.timer / spawner["spawn_rate_intensification"]) + 1)
+        if self.spawn_timer >= spawn_time / spawn_time_intensifier:
             if not self.spawn_once or not self.has_spawned:
                 self.spawn_timer = 0
                 self.spawn_enemy()
                 self.has_spawned = True
-                self.spawn_rate_variation = random.uniform(-enemy_stats["spawn_rate_variation"], enemy_stats["spawn_rate_variation"])
+                self.spawn_rate_variation = random.uniform(-spawner["spawn_rate_variation"], spawner["spawn_rate_variation"])
                 
 
     def spawn_enemy(self):
@@ -53,7 +59,7 @@ class EnemySpawner(Actor):
         
         # Check if enemy is slow or fast
         typ = None
-        if enemy_stats["fast_enemy_chance"] < random.random():
+        if spawner["fast_enemy_chance"] < random.random():
             typ = FastEnemy()
         else:
             typ = SlowEnemy()

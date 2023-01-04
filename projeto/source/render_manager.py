@@ -30,8 +30,5 @@ class RenderManager:
             if a.id == actor.id:
                 self._actors_to_render.pop(i)
                 
-        # if actor in self._actors_to_render:
-        #     self._actors_to_render.remove(actor)
-
     def sort_actors(self, val):
         return val.sprite.layer
