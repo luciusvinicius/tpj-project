@@ -91,12 +91,13 @@ class Engine:
                 command.execute(actor)
 
     def update(self):
-        # Update logic
-        for obj in self._game_actors:
-            obj.update()
 
         # Run collisions
         self.collision_manager.process()
+
+        # Update logic
+        for obj in self._game_actors:
+            obj.update()
 
     def late_update(self):
         # Render graphics
@@ -119,6 +120,8 @@ class Engine:
 
             self.early_update()
             self.update()
+
+            
             self.late_update()
 
             self.clock.tick(self.fps)

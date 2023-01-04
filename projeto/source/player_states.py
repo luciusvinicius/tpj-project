@@ -19,8 +19,9 @@ class IdleState(State):
 
     def update(self):
         if self.obj.vertical_state_machine.current_state.state_name == "idle" and not self.obj._physics.is_on_ground:
-            self.obj.vertical_state_machine.change_state("falling")
-        elif self.obj.horizontal_state_machine.current_state.state_name == "idle" and self.obj._physics.is_on_ground:
+            #self.obj.vertical_state_machine.change_state("falling")
+            pass
+        if self.obj.horizontal_state_machine.current_state.state_name == "idle" and self.obj._physics.is_on_ground:
             self.obj.sprite.change_animation("idle")
                 
 class RunningState(State):
@@ -40,7 +41,6 @@ class JumpingState(State):
         super().__init__("jumping", player)
 
     def enter(self):
-        # print("Entering Jumping State")
         if self.obj.is_dead: return
         SoundLoader.get_instance().play_sound("jump.wav", 0.1)
         self.obj.direction[1] = -1
@@ -51,7 +51,6 @@ class JumpingState(State):
             self.obj.vertical_state_machine.change_state("falling")
 
     def exit(self):
-        # print("Exiting Jumping State")
         pass
 
 class FallingState(State):
@@ -67,5 +66,4 @@ class FallingState(State):
             self.obj.vertical_state_machine.change_state("idle")
 
     def exit(self):
-        # print("Exiting Falling State")
         pass

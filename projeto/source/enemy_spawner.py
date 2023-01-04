@@ -39,7 +39,6 @@ class EnemySpawner(Actor):
                 self.do_once = True
 
     def spawn_enemy(self):
-        # print("Spawning enemy")
         enemy_graphics = SpriteComponent(self.engine_ref, "enemy.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7],
                                          [CollisionLayers.Enemy],
                                          [], True, False)
