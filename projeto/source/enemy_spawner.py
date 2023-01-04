@@ -18,7 +18,7 @@ class EnemySpawner(Actor):
         super().__init__(engine, components, init_pos, init_scale)
         self.spawn_rate = spawn_rate
         self.spawn_once = spawn_once
-        self.do_once = False
+        self.has_spawned = False
         self.spawn_timer = 0
         self.disabled = disabled
         self.name = "EnemySpawner"
@@ -30,16 +30,13 @@ class EnemySpawner(Actor):
         self.spawn_timer += 1
         if self.spawn_timer >= self.spawn_rate:
 
-            if self.do_once == False:
+            if not self.spawn_once or not self.has_spawned:
                 self.spawn_timer = 0
                 self.spawn_enemy()
-
-            if self.spawn_once:
-                self.spawn_once = False
-                self.do_once = True
+                self.has_spawned = True
 
     def spawn_enemy(self):
-        # print("Spawning enemy")
+        # Set up enemy
         enemy_graphics = SpriteComponent(self.engine_ref, "enemy.png", [3, 3], 40, 1, [0, 7], [0.5, 0.7],
                                          [CollisionLayers.Enemy],
                                          [], True, False)
@@ -51,7 +48,6 @@ class EnemySpawner(Actor):
         enemy_pos = self.pos.copy()
         enemy_pos[0] -= enemy_graphics.rect.width / 2
         enemy_pos[1] += enemy_graphics.rect.height / 4
-        # enemy_speed = random.uniform(enemy_stats["min_speed"], enemy_stats["max_speed"])
         
         # Check if enemy is slow or fast
         typ = None

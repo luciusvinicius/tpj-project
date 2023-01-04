@@ -11,7 +11,7 @@ enemy_stats = json.load(open(json_path, "r"))["enemy"]
 class Enemy(MovingEntity):
     
     def __init__(self, engine, components, init_pos = [0, 0], init_scale = [1, 1], 
-                 speed_x=1, speed_y=1, score=100, initial_direction=[-1, 0], typ=None):
+                 initial_direction=[-1, 0], typ=None):
         super().__init__(engine, components, init_pos, init_scale)
         
         self.name = "Enemy"
