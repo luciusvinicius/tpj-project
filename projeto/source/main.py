@@ -26,7 +26,6 @@ def main():
 
     start_engine(TITLE, WIDTH, HEIGHT, SCALE, FPS, DEBUG, sounds_path)
     
-
 def start_engine(title, width, height, scale, fps, debug, sounds_path):
     # Setup engine
     engine = Engine(title, width, height, scale, fps, debug)

@@ -6,6 +6,7 @@ from sprite_component import SpriteComponent
 from tile import Tile
 from collision_manager import CollisionLayers
 from pow_obj import Pow
+from actor import Actor
 
 
 ENTITIES = {
@@ -50,6 +51,12 @@ class Level:
                 if line_width > max_width: max_width = line_width
                 tile_map.append(line)
 
+
+        # Adding background
+        bg_sprite = SpriteComponent(self.engine, "background.png", [4, 4])
+        bg = Actor(self.engine, [bg_sprite], [0, 100])
+        self.engine.add_actor(bg)
+                        
         for idx_line, tile_line in enumerate(reversed(tile_map)):
             line_height = self.game_scale * (self.height - (idx_line + 1) * self.tile_scale)
 
