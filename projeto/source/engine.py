@@ -95,7 +95,6 @@ class Engine:
         for obj in self._game_actors:
             obj.before_col_update()
 
-
         # Run collisions
         self.collision_manager.process()
 

@@ -1,19 +1,19 @@
 Super Sussy Bros
 
 Patterns:
-    01 - Command: (Player inputs, com possibilidade de fazer multiplayer) CHECKED
-    02 - Flyweight: (Gráficos só darem load uma vez, e então serem só reutilizados) CHECKED
-    03 - Observer: (Eventos em geral. Se for tipo Mario Bros, quando se usa o POW, um evento é lançado que afeta todos os inimigos, além da verificação de collisions por exemplo)
-    04 - Prototype: (Spawner genérico que serve para vários tipos de inimigos, por exemplo em um cano)
-    05 - Singleton: (Uma única classe que dará load desses gráficos do Flyweight) CHECKED
-    06 - States: (Idle, Walk, Jump, Fall) CHECKED
+    -01 - Command: (Player inputs, com possibilidade de fazer multiplayer) CHECKED
+    -02 - Flyweight: (Gráficos só darem load uma vez, e então serem só reutilizados) CHECKED
+    -03 - Observer: (Eventos em geral. Se for tipo Mario Bros, quando se usa o POW, um evento é lançado que afeta todos os inimigos, além da verificação de collisions por exemplo)
+    -04 - Prototype: (Spawner genérico que serve para vários tipos de inimigos, por exemplo em um cano)
+    -05 - Singleton: (Uma única classe que dará load desses gráficos do Flyweight) CHECKED
+    -06 - States: (Idle, Walk, Jump, Fall) CHECKED
 
-    07 - Double Buffer: (Default Pygame Loop) CHECKED
+    -07 - Double Buffer: (Default Pygame Loop) CHECKED
     08 - Game Loop: (no reason needed) CHECKED
     09 - Update Method: (Default Pygame Loop) CHECKED
     
-    10 - Bytecode: Enemy/Player stats
-    11 - Type-Object: (Os inimigos do spawner serem levemente diferentes (por ex a speed))
-    12 - Component: (Separar a parte gráfica da lógica, just like the snake) CHECKED
-    13 - Service Locator: (A nossa classe engine, serve como Service Locator, uma vez que outras classes acedem ao engine como intermediário para obter outras informações) CHECKED (?)
+    -10 - Bytecode: Enemy/Player stats
+    -11 - Type-Object: (Os inimigos do spawner serem levemente diferentes (por ex a speed))
+    -12 - Component: (Separar a parte gráfica da lógica, just like the snake) CHECKED
+    -13 - Service Locator: (A nossa classe engine, serve como Service Locator, uma vez que outras classes acedem ao engine como intermediário para obter outras informações) CHECKED (?)
     

@@ -1,7 +1,7 @@
 # Super Sussy Bros
 Lucius Vinicius Rocha Machado Filho - 96123
 
-Luis Pedro Carvalho Chaves (jetbrains lover) - 114683
+Luis Pedro Carvalho Chaves - 114683
 
 ## Game Concept
 Super Sussy Bros is based on the Mario Bros game from the Nintendo Entertainment System (NES) console. It consists of a 2D platformer in a closed environment where enemies spawn given enough time.  The goal of the player is to perform the highest score eliminating enemies until it loses.
@@ -21,7 +21,7 @@ The bytecode patterns was used in two situations:
 ### Command
 The command pattern was used to get player inputs more dynamically. Applying this pattern made it possible to easily adjust modification to inputs.
 
-For instance, in the project’s beginning, the input logic was bad-implemented and the player couldn’t press more than one button at the same frame that the game state was forever wrong.
+For instance, in the project’s beginning, the input logic was badly-implemented and the player couldn’t press more than one button at the same frame, setting th game state perpetually off the beaten path.
 
 The Command process is done on the [handle_input function](projeto/source/input_manager.py), which is called by the [engine.](projeto/source/engine.py)
 
@@ -30,10 +30,8 @@ To simplify math at some points and reduce possible refactor situations, the gra
 
 The [Sprite Component](projeto/source/sprite_component.py) is also responsable to set up and manage animations and collisions.
 
-(To Luís: Tu q fez, ent acho q tu consegue tbm elaborar melhor do que eu nisso)
-
 ### Double Buffer
-The Render Manager processes all render operations. It applies the Double Buffer pattern, since it is the default method which PyGame utilizes to render the scene.
+The Render Manager processes all render operations. It applies the Double Buffer pattern, since it is the default method which Pygame utilizes to render the scene.
 
 First the Render Manager fills the scene with the background color, then proceeds to render all existent actors and text. Only after rendering everything, it changes the buffer to show the output.
 
@@ -47,37 +45,33 @@ When an object wants to use the corresponding asset, it gets the created instanc
 ### Observer
 In the project, there are two major uses for the Observer:
 
-- [Collision Manager](projeto/source/collision_manager.py): Checks the collisions of the entities and calls their respective “on_collision” method when triggered; (DPS EXPANDIR COM O LUÍS UPDATE)
+- [Collision Manager](projeto/source/collision_manager.py): Checks the collisions of the entities and calls their respective “on_collision” method when triggered;
 - [Signal Manager](projeto/source/signal_manager.py): Entities can call the manager to listen to a specific signal. When a signal is emitted by something, on every entity their “on_signal” method is called. One example of use is when a player hits the POW object, where a signal is sent to every enemy alive to be destroyed.
 
 ### Prototype
-To summon enemies, the game has an [enemy spawner object](projeto/source/enemy_spawner.py), and when a set amount of time has passed it would produce more enemies into the map.
+To summon enemies, the game has an [enemy spawner object](projeto/source/enemy_spawner.py), and when a set amount of time has passed, it produces more enemies into the map. This enemy spawner is used for all types of enemies.
 
 ### Service Locator
 Our project has a main [Engine class](projeto/source/engine.py), where all the actors, text, levels that will be used in the game are added. 
 
 #### Actor
-Every actor added via the “add_actor” method is added to the Render Manager through the Engine. Later they are updated in the Engine’s own update and lastly, in the Later Update phase, the Engine calls the Render Manager to render every actor.
-
-(Review phrase, i think that I wrote it very badly (tired probably)
+Every actor added via the “add_actor” method is added to the Render Manager through the Engine. During gameplay, they are updated in the Engine’s own update, and lastly, in the Later Update phase, the Engine calls the Render Manager to render every actor.
 
 #### Level
 After the initial setup, the engine requires a Level object to be added through the “add_level” method. The level then is loaded and stored in the engine.
 
-Later, for example, all dead actors need to check if they are still on the viewport or if they can be eliminated and, to analyze that, they get the level through the engine itself to make the operations with its size. If the actors are not in the level area, they call the engine to remove themselves and destroy their sprites.
+Later, for example, all dead actors need to check if they are still on the viewport or if they can be eliminated and, to analyze that, they get the level through the engine itself to make the calculation with its size. If the actors are not in the level area, they call the engine to remove themselves and destroy their sprites.
 
 #### Text
 Similarly to the actors, but without an update call, because texts are only rendered.
-
-(N SEI SE O SERVICE LOCATOR FICOU TÃO BEM EXPLICADO OU MUCHO TEXTO, MAYBE REFORMULAR LATER)
 
 ### States and State Machine
 Used mostly by the player entity, the [player's states](projeto/source/player_states.py) were used to see if the player is walking, jumping, falling or idle and processing the input correctly (for instance, the player cannot jump if it is already in the air).
 
 Because there are two independent movements (horizontal and vertical), two state machines were created for [the player](projeto/source/player.py), and therefore the states do not interfere with each other.
-The Horizontal State Machine has “Idle” and “Walking” as states, which are altered when the player presses “A” or “D” to move, or does not have any of those pressed.
+The Horizontal State Machine has “Idle” and “Walking” as states, which are altered when the player presses “LeftArrow” or “RightArrow” to move, or does not have any of those pressed.
 
-The Vertical State Machine owns “Idle”, “Jumping” and “Falling” as states. The player can only jump if it is not moving vertically at all. From “jumping” you can only go to “falling”, which is the only way to return to “idle”, when the player lands.
+The Vertical State Machine owns “Idle”, “Jumping” and “Falling” as states. The player can only jump if it is not moving vertically at all. From “jumping” one can only go to “falling”, which is the only way to return to “idle”, when the player lands.
 
 ![Player state machine](state_machine.png)
 Fig. Player state diagram.
@@ -88,10 +82,10 @@ As stated in the [Bytecode pattern](#bytecode), there is a [configuration file](
 An [enemy type](projeto/source/enemy_default.py) is composed by its score and speed, which is generated in the interval given by the configuration file. Because the enemy has two types, with different speed ranges and score, it was used then the Type-Object pattern.
 
 ### Update Method and Game Loop:
-Every entity that is processed on [the engine](projeto/source/engine.py) has an isolated update method that simulates one game’s frame. In our case, there is 3 times from updates being:
+Every entity that is processed on [the engine](projeto/source/engine.py) has an isolated update method that simulates one game’s frame. In our case, there are 3 distinct moments in one given game loop:
 
 - Early update: This update is used to check the inputs, which should be analyzed before applying player’s physics and movements;
-- Update: Regular update, where every actor is processed without a specific order. After the entities update, the engine also runs the Collision Manager update to check if there was a collision this frame and process “on_collision” events;
-- Late Update: This update is exclusive to render the graphics after the alterations on the game.
+- Update: Regular update, where every actor is processed without a specific order. Before the entities update though, the engine runs the Collision Manager update to check if there was a collision in this frame and process “on_collision” events;
+- Late Update: This update is exclusively used to render the graphics after the alterations to the game logic.
 
-These 3 different times consist in the Game Loop pattern.
+These 3 different moments consist in the Game Loop pattern.
