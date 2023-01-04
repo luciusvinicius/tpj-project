@@ -9,6 +9,7 @@
   },
   "enemy": {
     "spawn_rate": 100,
+    "spawn_rate_variation": 10,
     "min_speed": 0.5,
     "max_speed": 3,
     "score": 100,

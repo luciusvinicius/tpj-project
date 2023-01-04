@@ -20,6 +20,7 @@ class EnemySpawner(Actor):
         self.spawn_once = spawn_once
         self.has_spawned = False
         self.spawn_timer = spawn_time_offset
+        self.spawn_rate_variation = random.uniform(-enemy_stats["spawn_rate_variation"], enemy_stats["spawn_rate_variation"])
         self.disabled = disabled
         self.name = "EnemySpawner"
         self.direction = direction
@@ -28,12 +29,13 @@ class EnemySpawner(Actor):
         super().update()
         if self.disabled: return
         self.spawn_timer += 1
-        if self.spawn_timer >= self.spawn_rate:
-
+        if self.spawn_timer >= self.spawn_rate + self.spawn_rate_variation:
             if not self.spawn_once or not self.has_spawned:
                 self.spawn_timer = 0
                 self.spawn_enemy()
                 self.has_spawned = True
+                self.spawn_rate_variation = random.uniform(-enemy_stats["spawn_rate_variation"], enemy_stats["spawn_rate_variation"])
+                
 
     def spawn_enemy(self):
         # Set up enemy
