@@ -19,10 +19,11 @@ class Physics:
             speed[1] += gravity
 
         pos[0] += speed[0] * direction[0]
+        
+        obj_width = self.obj.sprite.rect.width / 2
 
-        # TODO: Find a way to do this in the player class instead
-        if self.obj.name == "Player":
-            pos[0] = pg.math.clamp(pos[0], 0, self.obj.engine_ref.level.get_width())
+        if pos[0] + obj_width < 0 or pos[0] - obj_width > self.obj.engine_ref.level.get_width():
+            pos[0] = pos[0] % self.obj.engine_ref.level.get_width()
 
         pos[1] += speed[1] * direction[1]
 
