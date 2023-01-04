@@ -5,9 +5,9 @@ L --> Enemy Spawner to the Left
 R --> Enemy Spawner to the Right
 
 START
-R                    
-----              ----
-          O          
+R                   L
+----       O       ----
+                    
                      
 --------      --------
 

@@ -26,17 +26,21 @@ class CollisionManager:
             self._actors_with_col.remove(actor)
 
     def process(self):
+
         for actor in self._actors_with_col:
             colliding_sprites = []
+            colliding_test = []
 
             for target_group in actor.sprite.col_groups:
 
                 for actor_group in actor.sprite.own_groups:
-                    colliding_test = pg.sprite.groupcollide(self.all_groups[actor_group],
-                                                            self.all_groups[target_group], False, False)
-                    
-                    for target_sprites in colliding_test.values():
-                        colliding_sprites += target_sprites
+                    colliding_test = pg.sprite.groupcollide(self.all_groups[actor_group], self.all_groups[target_group], False, False)
+                    for sprite in colliding_test:
+                        if sprite.actor_ref == actor:
+                            for target_sprites in colliding_test.values():
+                                # Extending list
+                                colliding_sprites += target_sprites     
 
+                               
             if len(colliding_sprites) > 0:
                 actor.on_collision(colliding_sprites)

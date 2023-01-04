@@ -44,6 +44,13 @@ class Enemy(MovingEntity):
             self.sprite.flip_X = False
         elif self.direction[0] < 0:
             self.sprite.flip_X = True
+
+
+        level_height = self.engine_ref.level.get_height()
+        act_height = self.sprite.rect.centery
+        if act_height < 0 or act_height > level_height:
+            if not self.is_dead:
+                self.kill(False)
             
         super().update()
 
@@ -72,8 +79,9 @@ class Enemy(MovingEntity):
             self.kill()
         # return super().on_signal(signal, *args)
             
-    def kill(self):
-        SoundLoader.get_instance().play_sound("damage.mp3", 0.2)
+    def kill(self, play_sound=True):
+        if play_sound:
+            SoundLoader.get_instance().play_sound("damage.mp3", 0.2)
         super().kill()
     
     

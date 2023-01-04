@@ -91,9 +91,7 @@ class Player(MovingEntity, InputInterface):
                     if is_above:
                         self._physics.is_on_ground = True
                     elif is_left or is_right:
-                        print("leftright")
                         if not self.has_changed_dir:
-                            print("leftright0")
                             self.direction[0] = 0
 
                     if not is_above:
