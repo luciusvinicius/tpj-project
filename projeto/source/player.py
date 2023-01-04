@@ -82,6 +82,7 @@ class Player(MovingEntity, InputInterface):
 
                     target_left = target.sprite.rect.centerx - target.sprite.rect.width / 2
                     target_right = target.sprite.rect.centerx + target.sprite.rect.width / 2
+                    
                     is_left = actor_center_x < target_left
                     is_right = actor_center_x > target_right
 
@@ -97,6 +98,7 @@ class Player(MovingEntity, InputInterface):
                     if not is_above:
                         if is_below:
                             self.speed[1] = 0
+                            self.pos[1] -= self.sprite.rect.height / (self.engine_ref.level.game_scale / 2) 
     
     
     def kill(self):
